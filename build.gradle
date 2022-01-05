@@ -139,8 +139,14 @@ repositories {
 dependencies {
 
     minecraft 'net.minecraftforge:forge:1.18.1-39.0.9'
-    runtimeOnly fg.deobf("curse.maven:exp-401955:3591753")  // Ars Nouveau 1.24.2
+    runtimeOnly fg.deobf("curse.maven:exp-401955:3591753")  // Ars Nouveau
     compileOnly fg.deobf("curse.maven:exp-401955:3591753")
+
+    runtimeOnly fg.deobf("curse.maven:exp-328085:3583784")  // create
+    compileOnly fg.deobf("curse.maven:exp-328085:3583784")
+
+    runtimeOnly fg.deobf("curse.maven:exp-486392:3584224")  // flywheel
+    compileOnly fg.deobf("curse.maven:exp-486392:3584224")
 
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.1-61:api")
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.1-61")

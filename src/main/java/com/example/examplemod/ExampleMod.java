@@ -25,6 +25,7 @@ public class ExampleMod
 
     public ExampleMod() {
         ArsNouveauRegistry.registerGlyphs();
+        CreateCompat.setup();
         ExampleConfig.registerGlyphConfigs();
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
