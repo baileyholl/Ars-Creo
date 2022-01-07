@@ -14,7 +14,7 @@ license="GNU Lesser General Public License v3.0"
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
 # The modid of the mod
-modId="examplemod" #mandatory
+modId="ars_creo" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
 version="${file.jarVersion}" #mandatory
  # A display name for the mod
@@ -38,7 +38,7 @@ Have some lorem ipsum.
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sagittis luctus odio eu tempus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque volutpat ligula eget lacus auctor sagittis. In hac habitasse platea dictumst. Nunc gravida elit vitae sem vehicula efficitur. Donec mattis ipsum et arcu lobortis, eleifend sagittis sem rutrum. Cras pharetra quam eget posuere fermentum. Sed id tincidunt justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.examplemod]] #optional
+[[dependencies.ars_creo]] #optional
     # the modid of the dependency
     modId="forge" #mandatory
     # Does this dependency have to exist - if not, ordering below must be specified
@@ -50,29 +50,35 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
 # Here's another dependency
-[[dependencies.examplemod]]
+[[dependencies.ars_creo]]
     modId="patchouli"
     mandatory=true
     versionRange="[1.18.1-61,)"
     ordering="AFTER"
     side="BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.ars_creo]]
     modId="curios"
     mandatory=true
     versionRange="[1.18.1-5.0.3.0,)"
     ordering="AFTER"
     side="BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.ars_creo]]
     modId="geckolib3"
     mandatory=true
     versionRange="[3.0.1,)"
     ordering="AFTER"
     side="BOTH"
-[[dependencies.examplemod]]
+[[dependencies.ars_creo]]
     modId="ars_nouveau"
     mandatory=true
     versionRange="[2.0.2,)"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.ars_creo]]
+    modId="create"
+    mandatory=true
+    versionRange="[0.4b,)"
     ordering="AFTER"
     side="BOTH"

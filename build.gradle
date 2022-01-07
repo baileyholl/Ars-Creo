@@ -30,8 +30,8 @@ apply plugin: 'maven-publish'
 
 
 version = '1.0.0'
-group = 'com.hollingsworth.an_addon' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'an_addon-1.16.5'
+group = 'com.hollingsworth.ars_creo' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'ars_creo-1.18.1'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 minecraft {
@@ -63,7 +63,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                ars_creo {
                     source sourceSets.main
                 }
             }
@@ -81,7 +81,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                ars_creo {
                     source sourceSets.main
                 }
             }
@@ -131,6 +131,14 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven {
+        url "https://maven.tterrag.com/"
+        content {
+            includeGroup "com.simibubi.create"
+            includeGroup "com.jozufozu.flywheel"
+        }
+    }
+
     maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
     jcenter()
     mavenCentral()
@@ -142,8 +150,8 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:exp-401955:3591753")  // Ars Nouveau
     compileOnly fg.deobf("curse.maven:exp-401955:3591753")
 
-    runtimeOnly fg.deobf("curse.maven:exp-328085:3583784")  // create
-    compileOnly fg.deobf("curse.maven:exp-328085:3583784")
+    runtimeOnly fg.deobf("com.simibubi.create:Create:mc1.18.1_v0.4b+47")
+    compileOnly fg.deobf("com.simibubi.create:Create:mc1.18.1_v0.4b+47")
 
     runtimeOnly fg.deobf("curse.maven:exp-486392:3584224")  // flywheel
     compileOnly fg.deobf("curse.maven:exp-486392:3584224")
