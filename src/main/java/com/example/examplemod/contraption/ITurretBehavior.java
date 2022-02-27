@@ -3,30 +3,28 @@ package com.example.examplemod.contraption;
 import com.example.examplemod.network.ACNetworking;
 import com.example.examplemod.network.PacketUpdateJarContraption;
 import com.hollingsworth.arsnouveau.api.ANFakePlayer;
+import com.hollingsworth.arsnouveau.api.NbtTags;
 import com.hollingsworth.arsnouveau.api.spell.EntitySpellResolver;
 import com.hollingsworth.arsnouveau.api.spell.Spell;
 import com.hollingsworth.arsnouveau.api.spell.SpellContext;
 import com.hollingsworth.arsnouveau.api.spell.SpellResolver;
-import com.hollingsworth.arsnouveau.api.util.SourceUtil;
+import com.hollingsworth.arsnouveau.api.util.ManaUtil;
 import com.hollingsworth.arsnouveau.common.block.BasicSpellTurret;
-import com.hollingsworth.arsnouveau.common.block.CreativeSourceJar;
-import com.hollingsworth.arsnouveau.common.block.SourceJar;
-import com.hollingsworth.arsnouveau.common.block.tile.SourceJarTile;
+import com.hollingsworth.arsnouveau.common.block.CreativeManaJar;
+import com.hollingsworth.arsnouveau.common.block.ManaJar;
+import com.hollingsworth.arsnouveau.common.block.tile.ManaJarTile;
 import com.hollingsworth.arsnouveau.common.entity.EntityProjectileSpell;
 import com.hollingsworth.arsnouveau.common.spell.method.MethodProjectile;
 import com.hollingsworth.arsnouveau.common.spell.method.MethodTouch;
 import com.simibubi.create.content.contraptions.components.structureMovement.MovementContext;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Position;
-import net.minecraft.core.PositionImpl;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.Mth;
-import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.block.BlockState;
+import net.minecraft.dispenser.Position;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.gen.feature.template.Template;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
 
@@ -35,14 +33,14 @@ import java.util.Map;
 public interface ITurretBehavior {
 
     default void castSpell(MovementContext context, BlockPos pos){
-        ServerLevel world = (ServerLevel) context.world;
+        ServerWorld world = (ServerWorld) context.world;
         Position iposition = getDispensePosition(pos, context.state);
         Direction direction = context.state.getValue(BasicSpellTurret.FACING);
         FakePlayer fakePlayer = ANFakePlayer.getPlayer(world);
         fakePlayer.setPos(pos.getX(), pos.getY(), pos.getZ());
         Spell spell = Spell.deserialize(context.tileData.getString("spell"));
         EntitySpellResolver resolver = new EntitySpellResolver((new SpellContext(spell, fakePlayer)).withType(SpellContext.CasterType.TURRET));
-        if(!canTakeFromJar(context, spell.getCastingCost(), pos) && SourceUtil.takeSourceNearbyWithParticles(pos, world, 6, spell.getCastingCost()) == null) {
+        if(!canTakeFromJar(context, spell.getCastingCost(), pos) && ManaUtil.takeManaNearbyWithParticles(pos, world, 6, spell.getCastingCost()) == null) {
             return;
         }
         if (resolver.castType instanceof MethodProjectile) {
@@ -58,18 +56,18 @@ public interface ITurretBehavior {
                     touchPos = touchPos.below();
                 }
 
-                resolver.onCastOnBlock(new BlockHitResult(new Vec3(touchPos.getX(), touchPos.getY(), touchPos.getZ()), direction.getOpposite(), new BlockPos(touchPos.getX(), touchPos.getY(), touchPos.getZ()), false), fakePlayer);
+                resolver.onCastOnBlock(new BlockRayTraceResult(new Vector3d(touchPos.getX(), touchPos.getY(), touchPos.getZ()), direction.getOpposite(), new BlockPos(touchPos.getX(), touchPos.getY(), touchPos.getZ()), false), fakePlayer);
             }
 
         }
     }
 
-    default void shootProjectile(ServerLevel world, BlockPos pos, SpellResolver resolver, BlockState state, MovementContext context) {
-        Vec3 facingVec = Vec3.atLowerCornerOf(context.state.getValue(BasicSpellTurret.FACING).getNormal());
+    default void shootProjectile(ServerWorld world, BlockPos pos, SpellResolver resolver, BlockState state, MovementContext context) {
+        Vector3d facingVec = Vector3d.atLowerCornerOf(context.state.getValue(BasicSpellTurret.FACING).getNormal());
         facingVec = context.rotation.apply(facingVec);
         facingVec.normalize();
 
-        Vec3 effectiveMovementVec = facingVec.scale(0.5f).add(context.motion);
+        Vector3d effectiveMovementVec = facingVec.scale(0.5f).add(context.motion);
 
 
         FakePlayer fakePlayer = FakePlayerFactory.getMinecraft(world);
@@ -85,23 +83,23 @@ public interface ITurretBehavior {
         world.addFreshEntity(spell);
     }
 
-    default Direction getClosestFacingDirection(Vec3 exactFacing) {
+    default Direction getClosestFacingDirection(Vector3d exactFacing) {
         return Direction.getNearest(exactFacing.x, exactFacing.y, exactFacing.z);
     }
 
     default boolean canTakeFromJar(MovementContext context, int amount, BlockPos turretPos){
-        ServerLevel world = (ServerLevel) context.world;
-        Map<BlockPos, StructureTemplate.StructureBlockInfo> structureBlocks =  context.contraption.getBlocks();
-        for(StructureTemplate.StructureBlockInfo blockInfo : structureBlocks.values()){
-            if(blockInfo.state.getBlock() instanceof CreativeSourceJar)
+        ServerWorld world = (ServerWorld) context.world;
+        Map<BlockPos, Template.BlockInfo> structureBlocks =  context.contraption.getBlocks();
+        for(Template.BlockInfo blockInfo : structureBlocks.values()){
+            if(blockInfo.state.getBlock() instanceof CreativeManaJar)
                 return true;
-            if(blockInfo.state.getBlock() instanceof SourceJar){
-                int totalSource = blockInfo.nbt.getInt(SourceJarTile.SOURCE_TAG);
+            if(blockInfo.state.getBlock() instanceof ManaJar){
+                int totalSource = blockInfo.nbt.getInt(NbtTags.MANA_TAG);
                 if(totalSource >= amount) {
                     int currentFillState = getFillState(totalSource);
                     int adjustedAmount = totalSource - amount;
                     int nextFillState = getFillState(adjustedAmount);
-                    blockInfo.nbt.putInt(SourceJarTile.SOURCE_TAG, adjustedAmount);
+                    blockInfo.nbt.putInt(NbtTags.MANA_TAG, adjustedAmount);
                     if(currentFillState != nextFillState)
                         ACNetworking.sendToNearby(world, turretPos, new PacketUpdateJarContraption(context.contraption.entity.getId(), blockInfo.pos, blockInfo.nbt, nextFillState));
                     return true;
@@ -126,6 +124,6 @@ public interface ITurretBehavior {
         double d0 = pos.getX() + 0.5D * (double)direction.getStepX();
         double d1 = pos.getY() + 0.5D * (double)direction.getStepY();
         double d2 = pos.getZ() + 0.5D * (double)direction.getStepZ();
-        return new PositionImpl(d0, d1, d2);
+        return new Position(d0, d1, d2);
     }
 }

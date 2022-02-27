@@ -1,19 +1,19 @@
 package com.example.examplemod.network;
 
 import com.example.examplemod.ArsCreo;
-import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.Level;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.util.thread.EffectiveSide;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.fml.common.thread.EffectiveSide;
+import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 public class ACNetworking {
     public static SimpleChannel INSTANCE;
@@ -30,22 +30,22 @@ public class ACNetworking {
                 PacketUpdateJarContraption::handle);
     }
 
-    public static void sendToNearby(Level world, BlockPos pos, Object toSend){
-        if (world instanceof ServerLevel) {
-            ServerLevel ws = (ServerLevel) world;
-            ws.getChunkSource().chunkMap.getPlayers(new ChunkPos(pos), false).stream()
+    public static void sendToNearby(World world, BlockPos pos, Object toSend){
+        if (world instanceof ServerWorld) {
+            ServerWorld ws = (ServerWorld) world;
+            ws.getChunkSource().chunkMap.getPlayers(new ChunkPos(pos), false)
                     .filter(p -> p.distanceToSqr(pos.getX(), pos.getY(), pos.getZ()) < 64 * 64)
                     .forEach(p -> INSTANCE.send(PacketDistributor.PLAYER.with(() -> p), toSend));
         }
     }
 
-    public static void sendToNearby(Level world, Entity e, Object toSend) {
+    public static void sendToNearby(World world, Entity e, Object toSend) {
         sendToNearby(world, e.blockPosition(), toSend);
     }
 
-    public static void sendToPlayer(Object msg, Player player) {
+    public static void sendToPlayer(Object msg, PlayerEntity player) {
         if (EffectiveSide.get() == LogicalSide.SERVER) {
-            ServerPlayer serverPlayer = (ServerPlayer) player;
+            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
             INSTANCE.send(PacketDistributor.PLAYER.with(() -> serverPlayer), msg);
         }
     }

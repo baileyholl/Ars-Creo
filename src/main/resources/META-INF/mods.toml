@@ -18,7 +18,7 @@ modId="ars_creo" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
 version="${file.jarVersion}" #mandatory
  # A display name for the mod
-displayName="Example Mod" #mandatory
+displayName="Ars Creo" #mandatory
 # A URL to query for updates for this mod. See the JSON update specification <here>
 #updateJSONURL="http://myurl.me/" #optional
 # A URL for the "homepage" for this mod, displayed in the mod UI
@@ -44,7 +44,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
     # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
     # The version range of the dependency
-    versionRange="[38.0.12,)" #mandatory
+    versionRange="[36.1.61,)" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
@@ -53,32 +53,32 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magn
 [[dependencies.ars_creo]]
     modId="patchouli"
     mandatory=true
-    versionRange="[1.18.1-61,)"
+    versionRange="[1.16-42,)"
     ordering="AFTER"
     side="BOTH"
 
 [[dependencies.ars_creo]]
     modId="curios"
     mandatory=true
-    versionRange="[1.18.1-5.0.3.0,)"
+    versionRange="[1.16.3-4.0.1.0,)"
     ordering="AFTER"
     side="BOTH"
 
 [[dependencies.ars_creo]]
     modId="geckolib3"
     mandatory=true
-    versionRange="[3.0.1,)"
+    versionRange="[3.0.64,)"
     ordering="AFTER"
     side="BOTH"
 [[dependencies.ars_creo]]
     modId="ars_nouveau"
     mandatory=true
-    versionRange="[2.0.2,)"
+    versionRange="[1.16.3-4.0.1.0,)"
     ordering="AFTER"
     side="BOTH"
 [[dependencies.ars_creo]]
     modId="create"
     mandatory=true
-    versionRange="[0.4b,)"
+    versionRange="[v0.3.,)"
     ordering="AFTER"
     side="BOTH"

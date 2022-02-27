@@ -1,7 +1,7 @@
 package com.example.examplemod.contraption;
 
 import com.simibubi.create.content.contraptions.components.structureMovement.MovementContext;
-import net.minecraft.core.BlockPos;
+import net.minecraft.util.math.BlockPos;
 
 public class EnhancedTurretBehavior extends AbstractTurretBehavior{
 

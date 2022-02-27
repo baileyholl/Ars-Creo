@@ -4,7 +4,7 @@ import com.example.examplemod.contraption.*;
 import com.hollingsworth.arsnouveau.ArsNouveau;
 import com.simibubi.create.AllInteractionBehaviours;
 import com.simibubi.create.AllMovementBehaviours;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ResourceLocation;
 
 public class CreateCompat {
 

@@ -1,43 +1,40 @@
 package com.example.examplemod.network;
 
 import com.hollingsworth.arsnouveau.ArsNouveau;
-import com.hollingsworth.arsnouveau.client.gui.book.GuiSpellBook;
-import com.hollingsworth.arsnouveau.common.block.SourceJar;
+import com.hollingsworth.arsnouveau.common.block.ManaJar;
 import com.hollingsworth.arsnouveau.setup.BlockRegistry;
 import com.simibubi.create.content.contraptions.components.structureMovement.AbstractContraptionEntity;
 import com.simibubi.create.content.contraptions.components.structureMovement.render.ContraptionRenderDispatcher;
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraft.entity.Entity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.gen.feature.template.Template;
+import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
 public class PacketUpdateJarContraption {
     public int entityID;
     public BlockPos structurePos;
-    public CompoundTag structureTag;
+    public CompoundNBT structureTag;
     public int fillLevel;
 
-    public PacketUpdateJarContraption(FriendlyByteBuf buf) {
+    public PacketUpdateJarContraption(PacketBuffer buf) {
         this.structurePos = buf.readBlockPos();
         this.structureTag = buf.readNbt();
         this.fillLevel = buf.readInt();
         this.entityID = buf.readInt();
     }
 
-    public void toBytes(FriendlyByteBuf buf) {
+    public void toBytes(PacketBuffer buf) {
         buf.writeBlockPos(structurePos);
         buf.writeNbt(structureTag);
         buf.writeInt(fillLevel);
         buf.writeInt(entityID);
     }
 
-    public PacketUpdateJarContraption(int entityId, BlockPos structurePos, CompoundTag tag, int fillLevel) {
+    public PacketUpdateJarContraption(int entityId, BlockPos structurePos, CompoundNBT tag, int fillLevel) {
         this.entityID = entityId;
         this.structurePos = structurePos;
         this.structureTag = tag;
@@ -47,9 +44,10 @@ public class PacketUpdateJarContraption {
     public void handle(Supplier<NetworkEvent.Context> ctx) {
         ((NetworkEvent.Context)ctx.get()).enqueueWork(() -> {
             Entity entity = ArsNouveau.proxy.getClientWorld().getEntity(entityID);
-            if(entity instanceof AbstractContraptionEntity contraption){
+            if(entity instanceof AbstractContraptionEntity){
+                AbstractContraptionEntity contraption = (AbstractContraptionEntity) entity;
                 contraption.getContraption().getBlocks().put(structurePos,
-                        new StructureTemplate.StructureBlockInfo(structurePos, BlockRegistry.SOURCE_JAR.defaultBlockState().setValue(SourceJar.fill, fillLevel), structureTag));
+                        new Template.BlockInfo(structurePos, BlockRegistry.MANA_JAR.defaultBlockState().setValue(ManaJar.fill, fillLevel), structureTag));
                 ContraptionRenderDispatcher.invalidate(contraption.getContraption());
             }
         });
