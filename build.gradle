@@ -147,8 +147,8 @@ repositories {
 dependencies {
 
     minecraft 'net.minecraftforge:forge:1.18.1-39.0.9'
-    runtimeOnly fg.deobf("curse.maven:exp-401955:3591753")  // Ars Nouveau
-    compileOnly fg.deobf("curse.maven:exp-401955:3591753")
+    runtimeOnly fg.deobf("com.hollingsworth.ars_nouveau:ars_nouveau-1.18.1:2.0.5.28")
+    compileOnly fg.deobf("com.hollingsworth.ars_nouveau:ars_nouveau-1.18.1:2.0.5.28")
 
     runtimeOnly fg.deobf("com.simibubi.create:Create:mc1.18.1_v0.4b+47")
     compileOnly fg.deobf("com.simibubi.create:Create:mc1.18.1_v0.4b+47")
