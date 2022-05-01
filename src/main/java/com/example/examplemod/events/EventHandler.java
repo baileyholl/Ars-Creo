@@ -20,10 +20,8 @@ public class EventHandler {
 
     @SubscribeEvent(priority= EventPriority.HIGHEST)
     public static void itemPickupEvent(SpellResolveEvent.Pre event) {
-        System.out.println(event.rayTraceResult);
         if(event.rayTraceResult instanceof EntityHitResult &&
                 ((EntityHitResult) event.rayTraceResult).getEntity() instanceof AbstractContraptionEntity contraptionEntity){
-            System.out.println(contraptionEntity.getContraption().getBlocks().get(new BlockPos(event.rayTraceResult.getLocation())).state);
 //            if(contraptionEntity.getContraption().getBlocks().get(new BlockPos(event.rayTraceResult.getLocation()))){
 //
 //            }

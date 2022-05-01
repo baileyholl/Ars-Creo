@@ -3,10 +3,7 @@ package com.example.examplemod.contraption;
 import com.example.examplemod.network.ACNetworking;
 import com.example.examplemod.network.PacketUpdateJarContraption;
 import com.hollingsworth.arsnouveau.api.ANFakePlayer;
-import com.hollingsworth.arsnouveau.api.spell.EntitySpellResolver;
-import com.hollingsworth.arsnouveau.api.spell.Spell;
-import com.hollingsworth.arsnouveau.api.spell.SpellContext;
-import com.hollingsworth.arsnouveau.api.spell.SpellResolver;
+import com.hollingsworth.arsnouveau.api.spell.*;
 import com.hollingsworth.arsnouveau.api.util.SourceUtil;
 import com.hollingsworth.arsnouveau.common.block.BasicSpellTurret;
 import com.hollingsworth.arsnouveau.common.block.CreativeSourceJar;
@@ -21,6 +18,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
 import net.minecraft.core.PositionImpl;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -40,12 +38,17 @@ public interface ITurretBehavior {
         Direction direction = context.state.getValue(BasicSpellTurret.FACING);
         FakePlayer fakePlayer = ANFakePlayer.getPlayer(world);
         fakePlayer.setPos(pos.getX(), pos.getY(), pos.getZ());
-        Spell spell = Spell.deserialize(context.tileData.getString("spell"));
+        TurretSpellCaster spellCaster = new TurretSpellCaster(context.tileData);
+        Spell spell = spellCaster.getSpell();
+        if(!spell.isValid()){
+            return;
+        }
         EntitySpellResolver resolver = new EntitySpellResolver((new SpellContext(spell, fakePlayer)).withType(SpellContext.CasterType.TURRET));
         if(!canTakeFromJar(context, spell.getCastingCost(), pos) && SourceUtil.takeSourceNearbyWithParticles(pos, world, 6, spell.getCastingCost()) == null) {
             return;
         }
         if (resolver.castType instanceof MethodProjectile) {
+            spellCaster.playSound(pos, world, null, spellCaster.getCurrentSound(), SoundSource.BLOCKS);
             this.shootProjectile(world, pos, resolver, context.state, context);
         } else {
             if (resolver.castType instanceof MethodTouch) {

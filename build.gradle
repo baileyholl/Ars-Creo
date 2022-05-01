@@ -29,9 +29,9 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 
-version = '1.0.0'
+version = '1.0.1'
 group = 'com.hollingsworth.ars_creo' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'ars_creo-1.18.1'
+archivesBaseName = 'ars_creo-1.18.2'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 minecraft {
@@ -43,7 +43,7 @@ minecraft {
     // Use non-default mappings at your own risk. they may not always work.
     // Simply re-run your setup task after changing the mappings to update your workspace.
 
-    mappings channel: 'parchment', version: '2021.12.19-1.18.1'
+    mappings channel: 'parchment', version: '2022.03.13-1.18.2'
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -146,26 +146,26 @@ repositories {
 }
 dependencies {
 
-    minecraft 'net.minecraftforge:forge:1.18.1-39.0.9'
-    runtimeOnly fg.deobf("com.hollingsworth.ars_nouveau:ars_nouveau-1.18.1:2.0.5.28")
-    compileOnly fg.deobf("com.hollingsworth.ars_nouveau:ars_nouveau-1.18.1:2.0.5.28")
+    minecraft 'net.minecraftforge:forge:1.18.2-40.0.36'
+    runtimeOnly fg.deobf("com.hollingsworth.ars_nouveau:ars_nouveau-1.18.2:2.4.0.158")
+    compileOnly fg.deobf("com.hollingsworth.ars_nouveau:ars_nouveau-1.18.2:2.4.0.158")
 
-    runtimeOnly fg.deobf("com.simibubi.create:Create:mc1.18.1_v0.4b+47")
-    compileOnly fg.deobf("com.simibubi.create:Create:mc1.18.1_v0.4b+47")
+    runtimeOnly fg.deobf("com.simibubi.create:Create:mc1.18.2_v0.4.1+111")
+    compileOnly fg.deobf("com.simibubi.create:Create:mc1.18.2_v0.4.1+111")
 
-    runtimeOnly fg.deobf("curse.maven:exp-486392:3584224")  // flywheel
-    compileOnly fg.deobf("curse.maven:exp-486392:3584224")
+    runtimeOnly fg.deobf("curse.maven:exp-486392:3737402")  // flywheel
+    compileOnly fg.deobf("curse.maven:exp-486392:3737402")
 
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.1-61:api")
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.1-61")
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.1-61")
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67:api")
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67")
 
-    compileOnly fg.deobf("mezz.jei:jei-1.18:9.0.0.40:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.18:9.0.0.40")
+    compileOnly fg.deobf("mezz.jei:jei-1.18.2:9.5.5.174:api")
+    runtimeOnly fg.deobf("mezz.jei:jei-1.18.2:9.5.5.174")
 
-    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.1-5.0.3.0:api")
-    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.1-5.0.3.0")
-    implementation fg.deobf('software.bernie.geckolib:geckolib-1.18-forge:3.0.3')
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.6.3:api")
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.18.2-5.0.6.3")
+    implementation fg.deobf('software.bernie.geckolib:geckolib-1.18-forge:3.0.13')
 
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 

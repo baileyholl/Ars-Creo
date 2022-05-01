@@ -11,12 +11,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 
-public class SourceJarBehavior extends MovementBehaviour {
+public class SourceJarBehavior implements MovementBehaviour {
 
-    @Override
-    public void tick(MovementContext context) {
-        super.tick(context);
-    }
 
     @Override
     public boolean renderAsNormalTileEntity() {
@@ -27,13 +23,4 @@ public class SourceJarBehavior extends MovementBehaviour {
         return context.tileData.getInt(SourceJarTile.SOURCE_TAG);
     }
 
-    @Override
-    public void startMoving(MovementContext context) {
-        super.startMoving(context);
-    }
-
-    @Override
-    public void renderInContraption(MovementContext context, VirtualRenderWorld renderWorld, ContraptionMatrices matrices, MultiBufferSource buffer) {
-        super.renderInContraption(context, renderWorld, matrices, buffer);
-    }
 }
