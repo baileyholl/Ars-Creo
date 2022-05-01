@@ -1,4 +1,4 @@
-package com.example.examplemod.network;
+package com.hollingsworth.ars_creo.common.network;
 
 import com.hollingsworth.arsnouveau.ArsNouveau;
 import com.hollingsworth.arsnouveau.common.block.ManaJar;
@@ -42,7 +42,7 @@ public class PacketUpdateJarContraption {
     }
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
-        ((NetworkEvent.Context)ctx.get()).enqueueWork(() -> {
+        (ctx.get()).enqueueWork(() -> {
             Entity entity = ArsNouveau.proxy.getClientWorld().getEntity(entityID);
             if(entity instanceof AbstractContraptionEntity){
                 AbstractContraptionEntity contraption = (AbstractContraptionEntity) entity;
@@ -51,6 +51,6 @@ public class PacketUpdateJarContraption {
                 ContraptionRenderDispatcher.invalidate(contraption.getContraption());
             }
         });
-        ((NetworkEvent.Context)ctx.get()).setPacketHandled(true);
+        (ctx.get()).setPacketHandled(true);
     }
 }

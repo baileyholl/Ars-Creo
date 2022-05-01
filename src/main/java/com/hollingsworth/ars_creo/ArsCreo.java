@@ -1,6 +1,6 @@
-package com.example.examplemod;
+package com.hollingsworth.ars_creo;
 
-import com.example.examplemod.network.ACNetworking;
+import com.hollingsworth.ars_creo.common.network.ACNetworking;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;

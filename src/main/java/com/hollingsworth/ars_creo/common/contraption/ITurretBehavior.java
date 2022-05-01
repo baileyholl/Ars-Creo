@@ -1,7 +1,7 @@
-package com.example.examplemod.contraption;
+package com.hollingsworth.ars_creo.common.contraption;
 
-import com.example.examplemod.network.ACNetworking;
-import com.example.examplemod.network.PacketUpdateJarContraption;
+import com.hollingsworth.ars_creo.common.network.ACNetworking;
+import com.hollingsworth.ars_creo.common.network.PacketUpdateJarContraption;
 import com.hollingsworth.arsnouveau.api.ANFakePlayer;
 import com.hollingsworth.arsnouveau.api.NbtTags;
 import com.hollingsworth.arsnouveau.api.spell.EntitySpellResolver;
@@ -12,7 +12,6 @@ import com.hollingsworth.arsnouveau.api.util.ManaUtil;
 import com.hollingsworth.arsnouveau.common.block.BasicSpellTurret;
 import com.hollingsworth.arsnouveau.common.block.CreativeManaJar;
 import com.hollingsworth.arsnouveau.common.block.ManaJar;
-import com.hollingsworth.arsnouveau.common.block.tile.ManaJarTile;
 import com.hollingsworth.arsnouveau.common.entity.EntityProjectileSpell;
 import com.hollingsworth.arsnouveau.common.spell.method.MethodProjectile;
 import com.hollingsworth.arsnouveau.common.spell.method.MethodTouch;

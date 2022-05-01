@@ -1,6 +1,6 @@
-package com.example.examplemod.network;
+package com.hollingsworth.ars_creo.common.network;
 
-import com.example.examplemod.ArsCreo;
+import com.hollingsworth.ars_creo.ArsCreo;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;

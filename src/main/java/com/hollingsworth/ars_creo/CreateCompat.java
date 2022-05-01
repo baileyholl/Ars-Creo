@@ -1,4 +1,4 @@
-package com.example.examplemod;
+package com.hollingsworth.ars_creo;
 
 import com.example.examplemod.contraption.*;
 import com.hollingsworth.arsnouveau.ArsNouveau;

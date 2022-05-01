@@ -1,4 +1,4 @@
-package com.example.examplemod.contraption;
+package com.hollingsworth.ars_creo.common.contraption;
 
 import com.hollingsworth.arsnouveau.api.NbtTags;
 import com.simibubi.create.content.contraptions.components.structureMovement.MovementBehaviour;
