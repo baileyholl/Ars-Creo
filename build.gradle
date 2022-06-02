@@ -29,7 +29,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 
-version = '1.0.1'
+version = '1.0.2'
 group = 'com.hollingsworth.ars_creo' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'ars_creo-1.18.2'
 
