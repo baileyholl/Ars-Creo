@@ -1,7 +1,7 @@
-package com.example.examplemod.contraption;
+package com.hollingsworth.ars_creo.contraption;
 
-import com.example.examplemod.network.ACNetworking;
-import com.example.examplemod.network.PacketUpdateJarContraption;
+import com.hollingsworth.ars_creo.network.ACNetworking;
+import com.hollingsworth.ars_creo.network.PacketUpdateJarContraption;
 import com.hollingsworth.arsnouveau.api.ANFakePlayer;
 import com.hollingsworth.arsnouveau.api.spell.*;
 import com.hollingsworth.arsnouveau.api.util.SourceUtil;
@@ -19,8 +19,6 @@ import net.minecraft.core.Position;
 import net.minecraft.core.PositionImpl;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.util.Mth;
-import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.phys.BlockHitResult;

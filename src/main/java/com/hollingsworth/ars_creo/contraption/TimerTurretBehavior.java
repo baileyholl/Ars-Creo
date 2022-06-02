@@ -1,4 +1,4 @@
-package com.example.examplemod.contraption;
+package com.hollingsworth.ars_creo.contraption;
 
 import com.simibubi.create.content.contraptions.components.structureMovement.MovementContext;
 import net.minecraft.core.BlockPos;

@@ -1,6 +1,6 @@
-package com.example.examplemod.network;
+package com.hollingsworth.ars_creo.network;
 
-import com.example.examplemod.ArsCreo;
+import com.hollingsworth.ars_creo.ArsCreo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;

@@ -1,16 +1,9 @@
-package com.example.examplemod.events;
+package com.hollingsworth.ars_creo.events;
 
-import com.example.examplemod.ArsCreo;
-import com.hollingsworth.arsnouveau.ArsNouveau;
+import com.hollingsworth.ars_creo.ArsCreo;
 import com.hollingsworth.arsnouveau.api.event.SpellResolveEvent;
-import com.hollingsworth.arsnouveau.common.items.VoidJar;
 import com.simibubi.create.content.contraptions.components.structureMovement.AbstractContraptionEntity;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.EntityHitResult;
-import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

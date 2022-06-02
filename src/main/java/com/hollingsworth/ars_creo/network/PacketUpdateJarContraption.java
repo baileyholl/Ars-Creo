@@ -1,4 +1,4 @@
-package com.example.examplemod.network;
+package com.hollingsworth.ars_creo.network;
 
 import com.hollingsworth.arsnouveau.ArsNouveau;
 import com.hollingsworth.arsnouveau.client.gui.book.GuiSpellBook;

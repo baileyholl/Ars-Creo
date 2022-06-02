@@ -1,6 +1,7 @@
-package com.example.examplemod;
+package com.hollingsworth.ars_creo;
 
 import com.example.examplemod.contraption.*;
+import com.hollingsworth.ars_creo.contraption.*;
 import com.hollingsworth.arsnouveau.ArsNouveau;
 import com.simibubi.create.AllInteractionBehaviours;
 import com.simibubi.create.AllMovementBehaviours;

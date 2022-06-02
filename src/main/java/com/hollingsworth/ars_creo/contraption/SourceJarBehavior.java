@@ -1,4 +1,4 @@
-package com.example.examplemod.contraption;
+package com.hollingsworth.ars_creo.contraption;
 
 import com.hollingsworth.arsnouveau.common.block.SourceJar;
 import com.hollingsworth.arsnouveau.common.block.tile.SourceJarTile;
