@@ -40,7 +40,7 @@ Adds compatibility between Ars Nouveau and Create
     # Does this dependency have to exist - if not, ordering below must be specified
     mandatory=true #mandatory
     # The version range of the dependency
-    versionRange="[38.0.12,)" #mandatory
+    versionRange="[38.1.0,)" #mandatory
     # An ordering relationship for the dependency - BEFORE or AFTER required if the relationship is not mandatory
     ordering="NONE"
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
@@ -75,6 +75,6 @@ Adds compatibility between Ars Nouveau and Create
 [[dependencies.ars_creo]]
     modId="create"
     mandatory=true
-    versionRange="[0.4b,)"
+    versionRange="[0.5,)"
     ordering="AFTER"
     side="BOTH"
