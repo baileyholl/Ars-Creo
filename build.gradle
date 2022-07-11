@@ -146,15 +146,13 @@ repositories {
 }
 dependencies {
 
-    minecraft 'net.minecraftforge:forge:1.18.2-40.0.36'
-    runtimeOnly fg.deobf("com.hollingsworth.ars_nouveau:ars_nouveau-1.18.2:2.4.0.158")
-    compileOnly fg.deobf("com.hollingsworth.ars_nouveau:ars_nouveau-1.18.2:2.4.0.158")
+    minecraft 'net.minecraftforge:forge:1.18.2-40.1.0'
+    implementation fg.deobf("com.hollingsworth.ars_nouveau:ars_nouveau-1.18.2:2.6.4.231")
 
-    runtimeOnly fg.deobf("com.simibubi.create:Create:mc1.18.2_v0.4.1+111")
-    compileOnly fg.deobf("com.simibubi.create:Create:mc1.18.2_v0.4.1+111")
+    implementation fg.deobf("com.simibubi.create:Create:mc1.18.2_v0.5.0+128")
 
-    runtimeOnly fg.deobf("curse.maven:exp-486392:3737402")  // flywheel
-    compileOnly fg.deobf("curse.maven:exp-486392:3737402")
+
+    implementation fg.deobf("curse.maven:exp-486392:3864518")  // flywheel
 
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67:api")
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67")
