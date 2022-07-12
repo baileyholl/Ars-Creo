@@ -29,7 +29,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 
-version = '1.0.4'
+version = '1.0.5'
 group = 'com.hollingsworth.ars_creo' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'ars_creo-1.18.2'
 
@@ -149,10 +149,10 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.18.2-40.1.0'
     implementation fg.deobf("com.hollingsworth.ars_nouveau:ars_nouveau-1.18.2:2.6.4.231")
 
-    implementation fg.deobf("com.simibubi.create:Create:mc1.18.2_v0.5.0+127")
+    implementation fg.deobf("com.simibubi.create:Create:mc1.18.2_v0.5.0c+144")
 
 
-    implementation fg.deobf("curse.maven:exp-486392:3864518")  // flywheel
+    implementation fg.deobf("curse.maven:exp-486392:3871082")  // flywheel
 
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67:api")
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67")
