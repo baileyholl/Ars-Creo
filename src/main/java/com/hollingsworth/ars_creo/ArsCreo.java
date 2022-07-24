@@ -1,10 +1,10 @@
 package com.hollingsworth.ars_creo;
 
+
 import com.hollingsworth.ars_creo.network.ACNetworking;
+import com.hollingsworth.ars_creo.client.render.ClientHandler;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -23,7 +23,7 @@ public class ArsCreo
         CreateCompat.setup();
         ExampleConfig.registerGlyphConfigs();
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -32,11 +32,8 @@ public class ArsCreo
         ACNetworking.registerMessages();
     }
 
-    private void doClientStuff(final FMLClientSetupEvent event) {
-    }
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
 
+    public void clientSetup(final FMLClientSetupEvent event) {
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientHandler::init);
     }
 }
