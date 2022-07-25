@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ars_nouveau:carbuncle_charm"
+    },
+    {
+      "item": "create:water_wheel"
+    }
+  ],
+  "result": {
+    "item": "ars_creo:starbuncle_wheel",
+    "count": 1
+  }
+}
