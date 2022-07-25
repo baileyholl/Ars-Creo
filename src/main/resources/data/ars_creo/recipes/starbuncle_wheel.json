@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "ars_nouveau:carbuncle_charm"
+      "item": "ars_nouveau:starbuncle_charm"
     },
     {
       "item": "create:water_wheel"

@@ -4,7 +4,6 @@ package com.hollingsworth.ars_creo;
 import com.hollingsworth.ars_creo.network.ACNetworking;
 import com.hollingsworth.ars_creo.client.render.ClientHandler;
 
-import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -17,8 +16,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(ArsCreo.MODID)
 public class ArsCreo
 {
-    // Directly reference a log4j logger.
-    public static ForgeConfigSpec SERVER_CONFIG;
+
     public static final String MODID = "ars_creo";
 
     public ArsCreo() {

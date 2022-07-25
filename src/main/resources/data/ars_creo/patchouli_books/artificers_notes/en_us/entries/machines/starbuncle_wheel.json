@@ -1,14 +1,14 @@
 {
     "name": "block.ars_creo.starbuncle_wheel",
     "icon": "ars_creo:starbuncle_wheel",
-    "category": "machines",
+    "category": "ars_nouveau:machines",
     "pages": [
         {
-            "type": "text",
+            "type": "patchouli:text",
             "text": "ars_creo.page.starbuncle_wheel"
         },
 		{
-            "type":"crafting",
+            "type":"patchouli:crafting",
 			"recipe":"ars_creo:starbuncle_wheel"
 		}
     ]

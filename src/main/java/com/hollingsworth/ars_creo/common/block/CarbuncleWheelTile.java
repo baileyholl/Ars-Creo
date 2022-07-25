@@ -1,14 +1,11 @@
 package com.hollingsworth.ars_creo.common.block;
 
 import com.hollingsworth.ars_creo.common.registry.ModBlockRegistry;
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.contraptions.base.GeneratingKineticTileEntity;
 import com.simibubi.create.content.contraptions.components.crank.HandCrankBlock;
-import com.simibubi.create.foundation.block.ITE;
-import com.simibubi.create.foundation.config.AllConfigs;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.Direction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
@@ -19,8 +16,8 @@ import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class CarbuncleWheelTile extends GeneratingKineticTileEntity implements IAnimatable {
-    public CarbuncleWheelTile() {
-        super(ModBlockRegistry.CARBY_TILE);
+    public CarbuncleWheelTile(BlockPos pos, BlockState state) {
+        super(ModBlockRegistry.CARBY_TILE, pos, state);
         setLazyTickRate(20);
     }
 
@@ -47,18 +44,12 @@ public class CarbuncleWheelTile extends GeneratingKineticTileEntity implements I
     }
 
     @Override
-    public boolean shouldRenderNormally() {
-        return true;
-    }
-
-    @Override
     public void lazyTick() {
         super.lazyTick();
-        ModBlockRegistry.CARBY_WHEEL
-                .updateAllSides(getBlockState(), level, worldPosition);
+        ModBlockRegistry.CARBY_WHEEL.updateAllSides(getBlockState(), level, worldPosition);
     }
 
-    private <E extends TileEntity & IAnimatable > PlayState idlePredicate(AnimationEvent<E> event) {
+    private PlayState idlePredicate(AnimationEvent event) {
         event.getController().setAnimation(new AnimationBuilder().addAnimation("run", true));
         return PlayState.CONTINUE;
     }

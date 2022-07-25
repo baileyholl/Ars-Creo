@@ -2,30 +2,20 @@ package com.hollingsworth.ars_creo.common.block;
 
 import com.hollingsworth.ars_creo.common.registry.ModBlockRegistry;
 import com.simibubi.create.AllBlocks;
-import com.simibubi.create.AllTileEntities;
 import com.simibubi.create.content.contraptions.base.DirectionalKineticBlock;
-import com.simibubi.create.content.contraptions.components.waterwheel.WaterWheelTileEntity;
 import com.simibubi.create.foundation.block.ITE;
-import com.simibubi.create.foundation.utility.Iterate;
 import com.simibubi.create.foundation.utility.worldWrappers.WrappedWorld;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
 public class CarbuncleWheelBlock extends DirectionalKineticBlock implements ITE<CarbuncleWheelTile> {
     public CarbuncleWheelBlock(Properties p_i48440_1_) {
@@ -34,30 +24,30 @@ public class CarbuncleWheelBlock extends DirectionalKineticBlock implements ITE<
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         Direction face = context.getClickedFace();
         Direction horizontalFacing = context.getHorizontalDirection();
         BlockPos pos = context.getClickedPos();
-        World world = context.getLevel();
-        PlayerEntity player = context.getPlayer();
+        Level world = context.getLevel();
+        Player player = context.getPlayer();
 
         BlockState placedOn = world.getBlockState(pos.relative(face.getOpposite()));
-        if (ModBlockRegistry.CARBY_WHEEL.defaultBlockState().is(placedOn.getBlock()))
+        if (AllBlocks.WATER_WHEEL.has(placedOn))
             return defaultBlockState().setValue(FACING, placedOn.getValue(FACING));
 
         Direction facing = face;
         boolean sneaking = player != null && player.isShiftKeyDown();
         if (player != null) {
 
-            Vector3d lookVec = player.getLookAngle();
+            Vec3 lookVec = player.getLookAngle();
             double tolerance = 0.985;
 
             if (!canSurvive(defaultBlockState().setValue(FACING, Direction.UP), world, pos))
                 facing = horizontalFacing;
-            else if (Vector3d.atLowerCornerOf(Direction.DOWN.getNormal())
+            else if (Vec3.atLowerCornerOf(Direction.DOWN.getNormal())
                     .dot(lookVec.normalize()) > tolerance)
                 facing = Direction.DOWN;
-            else if (Vector3d.atLowerCornerOf(Direction.UP.getNormal())
+            else if (Vec3.atLowerCornerOf(Direction.UP.getNormal())
                     .dot(lookVec.normalize()) > tolerance)
                 facing = Direction.UP;
             else
@@ -67,22 +57,18 @@ public class CarbuncleWheelBlock extends DirectionalKineticBlock implements ITE<
 
         return defaultBlockState().setValue(FACING, sneaking ? facing.getOpposite() : facing);
     }
-    @Override
-    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(FACING);
-    }
 
-    private void updateWheelSpeed(IWorld world, BlockPos pos) {
+    private void updateWheelSpeed(LevelAccessor world, BlockPos pos) {
         withTileEntityDo(world, pos, CarbuncleWheelTile::updateGeneratedRotation);
         withTileEntityDo(world, pos, (te) -> te.setChanged());
     }
 
-    public void updateAllSides(BlockState state, World worldIn, BlockPos pos) {
+    public void updateAllSides(BlockState state, Level worldIn, BlockPos pos) {
         updateWheelSpeed(worldIn, pos);
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState, LevelAccessor worldIn,
                                   BlockPos currentPos, BlockPos facingPos) {
         if (worldIn instanceof WrappedWorld)
             return stateIn;
@@ -92,29 +78,19 @@ public class CarbuncleWheelBlock extends DirectionalKineticBlock implements ITE<
     }
 
     @Override
-    public void onPlace(BlockState state, World worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
+    public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {
         super.onPlace(state, worldIn, pos, oldState, isMoving);
         updateAllSides(state, worldIn, pos);
     }
 
 
-    @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new CarbuncleWheelTile();
-    }
-
-    public boolean hasTileEntity(BlockState state) {
-        return true;
+    public RenderShape getRenderShape(BlockState p_149645_1_) {
+        return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
     @Override
-    public BlockRenderType getRenderShape(BlockState p_149645_1_) {
-        return BlockRenderType.ENTITYBLOCK_ANIMATED;
-    }
-
-    @Override
-    public boolean hasShaftTowards(IWorldReader world, BlockPos pos, BlockState state, Direction face) {
+    public boolean hasShaftTowards(LevelReader world, BlockPos pos, BlockState state, Direction face) {
         return state.getValue(FACING)
                 .getAxis() == face.getAxis();
     }
@@ -149,5 +125,10 @@ public class CarbuncleWheelBlock extends DirectionalKineticBlock implements ITE<
     @Override
     public Class<CarbuncleWheelTile> getTileEntityClass() {
         return CarbuncleWheelTile.class;
+    }
+
+    @Override
+    public BlockEntityType<? extends CarbuncleWheelTile> getTileEntityType() {
+        return ModBlockRegistry.CARBY_TILE;
     }
 }
