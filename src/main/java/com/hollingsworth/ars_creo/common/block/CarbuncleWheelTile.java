@@ -36,8 +36,10 @@ public class CarbuncleWheelTile extends GeneratingKineticTileEntity implements I
     public float getGeneratedSpeed() {
         int spd = 16;
         Direction direction = getBlockState().getValue(CarbuncleWheelBlock.FACING);
-        if(level.getBlockState(getBlockPos().relative(direction.getClockWise())).is(Tags.Blocks.STORAGE_BLOCKS_GOLD)){
-            spd = 24;
+        if(direction != Direction.UP && direction != Direction.DOWN) {
+            if (level.getBlockState(getBlockPos().relative(direction.getClockWise())).is(Tags.Blocks.STORAGE_BLOCKS_GOLD)) {
+                spd = 24;
+            }
         }
 
         return convertToDirection(spd, getBlockState().getValue(HandCrankBlock.FACING));

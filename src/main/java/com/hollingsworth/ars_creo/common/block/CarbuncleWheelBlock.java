@@ -37,23 +37,7 @@ public class CarbuncleWheelBlock extends DirectionalKineticBlock implements ITE<
 
         Direction facing = face;
         boolean sneaking = player != null && player.isShiftKeyDown();
-        if (player != null) {
-
-            Vec3 lookVec = player.getLookAngle();
-            double tolerance = 0.985;
-
-            if (!canSurvive(defaultBlockState().setValue(FACING, Direction.UP), world, pos))
-                facing = horizontalFacing;
-            else if (Vec3.atLowerCornerOf(Direction.DOWN.getNormal())
-                    .dot(lookVec.normalize()) > tolerance)
-                facing = Direction.DOWN;
-            else if (Vec3.atLowerCornerOf(Direction.UP.getNormal())
-                    .dot(lookVec.normalize()) > tolerance)
-                facing = Direction.UP;
-            else
-                facing = horizontalFacing;
-
-        }
+        facing = horizontalFacing;
 
         return defaultBlockState().setValue(FACING, sneaking ? facing.getOpposite() : facing);
     }
