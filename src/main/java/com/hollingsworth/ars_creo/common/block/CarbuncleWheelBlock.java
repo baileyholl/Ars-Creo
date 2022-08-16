@@ -32,8 +32,9 @@ public class CarbuncleWheelBlock extends DirectionalKineticBlock implements ITE<
         Player player = context.getPlayer();
 
         BlockState placedOn = world.getBlockState(pos.relative(face.getOpposite()));
-        if (AllBlocks.WATER_WHEEL.has(placedOn))
+        if(placedOn.is(ModBlockRegistry.CARBY_WHEEL)){
             return defaultBlockState().setValue(FACING, placedOn.getValue(FACING));
+        }
 
         Direction facing = face;
         boolean sneaking = player != null && player.isShiftKeyDown();
