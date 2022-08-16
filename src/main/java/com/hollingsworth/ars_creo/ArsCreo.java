@@ -22,7 +22,7 @@ public class ArsCreo
     public ArsCreo() {
         ArsNouveauRegistry.registerGlyphs();
         CreateCompat.setup();
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ExampleConfig.SERVER_CONFIG);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CreoConfig.SERVER_CONFIG);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         MinecraftForge.EVENT_BUS.register(this);

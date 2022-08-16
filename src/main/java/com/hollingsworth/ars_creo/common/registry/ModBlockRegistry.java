@@ -1,14 +1,10 @@
 package com.hollingsworth.ars_creo.common.registry;
 
 import com.hollingsworth.ars_creo.ArsCreo;
-import com.hollingsworth.ars_creo.client.render.CarbuncleWheelModel;
 import com.hollingsworth.ars_creo.client.render.CarbuncleWheelRenderer;
-import com.hollingsworth.ars_creo.common.block.CarbuncleWheelBlock;
-import com.hollingsworth.ars_creo.common.block.CarbuncleWheelTile;
+import com.hollingsworth.ars_creo.common.block.StarbuncleWheelBlock;
+import com.hollingsworth.ars_creo.common.block.StarbuncleWheelTile;
 import com.hollingsworth.ars_creo.common.lib.LibBlock;
-import com.hollingsworth.arsnouveau.client.renderer.item.GenericItemRenderer;
-import com.hollingsworth.arsnouveau.client.renderer.tile.GenericRenderer;
-import com.hollingsworth.arsnouveau.common.items.AnimBlockItem;
 import com.hollingsworth.arsnouveau.common.items.RendererBlockItem;
 import com.hollingsworth.arsnouveau.setup.ItemsRegistry;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -27,31 +23,31 @@ import java.util.function.Supplier;
 
 @ObjectHolder(ArsCreo.MODID)
 public class ModBlockRegistry {
-    @ObjectHolder(LibBlock.CARBUNCLE_WHEEL) public static CarbuncleWheelBlock CARBY_WHEEL;
-    @ObjectHolder(LibBlock.CARBUNCLE_WHEEL) public static BlockEntityType<CarbuncleWheelTile> CARBY_TILE;
+    @ObjectHolder(LibBlock.STARBUNCLE_WHEEL) public static StarbuncleWheelBlock STARBY_WHEEL;
+    @ObjectHolder(LibBlock.STARBUNCLE_WHEEL) public static BlockEntityType<StarbuncleWheelTile> STARBY_TILE;
 
     @Mod.EventBusSubscriber(bus=Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             IForgeRegistry<Block> registry = blockRegistryEvent.getRegistry();
-            registry.register(new CarbuncleWheelBlock(defaultProperties().noOcclusion().lightLevel((state) -> 10)).setRegistryName(LibBlock.CARBUNCLE_WHEEL));
+            registry.register(new StarbuncleWheelBlock(defaultProperties().noOcclusion().lightLevel((state) -> 10)).setRegistryName(LibBlock.STARBUNCLE_WHEEL));
         }
 
         @SubscribeEvent
         public static void onTileEntityRegistry(final RegistryEvent.Register<BlockEntityType<?>> event){
-            event.getRegistry().register(BlockEntityType.Builder.of(CarbuncleWheelTile::new, ModBlockRegistry.CARBY_WHEEL).build(null).setRegistryName(LibBlock.CARBUNCLE_WHEEL));
+            event.getRegistry().register(BlockEntityType.Builder.of(StarbuncleWheelTile::new, ModBlockRegistry.STARBY_WHEEL).build(null).setRegistryName(LibBlock.STARBUNCLE_WHEEL));
 
         }
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
             IForgeRegistry<Item> registry = itemRegistryEvent.getRegistry();
-            registry.register(new RendererBlockItem(ModBlockRegistry.CARBY_WHEEL, ItemsRegistry.defaultItemProperties()) {
+            registry.register(new RendererBlockItem(ModBlockRegistry.STARBY_WHEEL, ItemsRegistry.defaultItemProperties()) {
                 @Override
                 public Supplier<BlockEntityWithoutLevelRenderer> getRenderer() {
                     return CarbuncleWheelRenderer::getISTER;
                 }
-            }.setRegistryName(LibBlock.CARBUNCLE_WHEEL));
+            }.setRegistryName(LibBlock.STARBUNCLE_WHEEL));
         }
     }
     public static Block.Properties defaultProperties(){

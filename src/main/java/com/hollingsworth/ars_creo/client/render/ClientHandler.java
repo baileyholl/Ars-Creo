@@ -16,10 +16,10 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 public class ClientHandler {
     @SubscribeEvent
     public static void init(final FMLClientSetupEvent evt) {
-        ItemBlockRenderTypes.setRenderLayer(ModBlockRegistry.CARBY_WHEEL, RenderType.cutout());
+        ItemBlockRenderTypes.setRenderLayer(ModBlockRegistry.STARBY_WHEEL, RenderType.cutout());
     }
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event){
-        event.registerBlockEntityRenderer(ModBlockRegistry.CARBY_TILE, CarbuncleWheelRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockRegistry.STARBY_TILE, CarbuncleWheelRenderer::new);
     }
 }

@@ -1,7 +1,6 @@
 package com.hollingsworth.ars_creo.common.block;
 
 import com.hollingsworth.ars_creo.common.registry.ModBlockRegistry;
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.contraptions.base.DirectionalKineticBlock;
 import com.simibubi.create.foundation.block.ITE;
 import com.simibubi.create.foundation.utility.worldWrappers.WrappedWorld;
@@ -15,10 +14,9 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 
-public class CarbuncleWheelBlock extends DirectionalKineticBlock implements ITE<CarbuncleWheelTile> {
-    public CarbuncleWheelBlock(Properties p_i48440_1_) {
+public class StarbuncleWheelBlock extends DirectionalKineticBlock implements ITE<StarbuncleWheelTile> {
+    public StarbuncleWheelBlock(Properties p_i48440_1_) {
         super(p_i48440_1_);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
@@ -32,7 +30,7 @@ public class CarbuncleWheelBlock extends DirectionalKineticBlock implements ITE<
         Player player = context.getPlayer();
 
         BlockState placedOn = world.getBlockState(pos.relative(face.getOpposite()));
-        if(placedOn.is(ModBlockRegistry.CARBY_WHEEL)){
+        if(placedOn.is(ModBlockRegistry.STARBY_WHEEL)){
             return defaultBlockState().setValue(FACING, placedOn.getValue(FACING));
         }
 
@@ -44,7 +42,7 @@ public class CarbuncleWheelBlock extends DirectionalKineticBlock implements ITE<
     }
 
     private void updateWheelSpeed(LevelAccessor world, BlockPos pos) {
-        withTileEntityDo(world, pos, CarbuncleWheelTile::updateGeneratedRotation);
+        withTileEntityDo(world, pos, StarbuncleWheelTile::updateGeneratedRotation);
         withTileEntityDo(world, pos, (te) -> te.setChanged());
     }
 
@@ -108,12 +106,12 @@ public class CarbuncleWheelBlock extends DirectionalKineticBlock implements ITE<
 
 
     @Override
-    public Class<CarbuncleWheelTile> getTileEntityClass() {
-        return CarbuncleWheelTile.class;
+    public Class<StarbuncleWheelTile> getTileEntityClass() {
+        return StarbuncleWheelTile.class;
     }
 
     @Override
-    public BlockEntityType<? extends CarbuncleWheelTile> getTileEntityType() {
-        return ModBlockRegistry.CARBY_TILE;
+    public BlockEntityType<? extends StarbuncleWheelTile> getTileEntityType() {
+        return ModBlockRegistry.STARBY_TILE;
     }
 }

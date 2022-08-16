@@ -15,9 +15,9 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class CarbuncleWheelTile extends GeneratingKineticTileEntity implements IAnimatable {
-    public CarbuncleWheelTile(BlockPos pos, BlockState state) {
-        super(ModBlockRegistry.CARBY_TILE, pos, state);
+public class StarbuncleWheelTile extends GeneratingKineticTileEntity implements IAnimatable {
+    public StarbuncleWheelTile(BlockPos pos, BlockState state) {
+        super(ModBlockRegistry.STARBY_TILE, pos, state);
         setLazyTickRate(20);
     }
 
@@ -35,7 +35,7 @@ public class CarbuncleWheelTile extends GeneratingKineticTileEntity implements I
     @Override
     public float getGeneratedSpeed() {
         int spd = 16;
-        Direction direction = getBlockState().getValue(CarbuncleWheelBlock.FACING);
+        Direction direction = getBlockState().getValue(StarbuncleWheelBlock.FACING);
         if(direction != Direction.UP && direction != Direction.DOWN) {
             if (level.getBlockState(getBlockPos().relative(direction.getClockWise())).is(Tags.Blocks.STORAGE_BLOCKS_GOLD)) {
                 spd = 24;
@@ -48,7 +48,7 @@ public class CarbuncleWheelTile extends GeneratingKineticTileEntity implements I
     @Override
     public void lazyTick() {
         super.lazyTick();
-        ModBlockRegistry.CARBY_WHEEL.updateAllSides(getBlockState(), level, worldPosition);
+        ModBlockRegistry.STARBY_WHEEL.updateAllSides(getBlockState(), level, worldPosition);
     }
 
     private PlayState idlePredicate(AnimationEvent event) {

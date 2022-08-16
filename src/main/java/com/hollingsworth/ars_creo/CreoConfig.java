@@ -1,13 +1,10 @@
 package com.hollingsworth.ars_creo;
 
-import com.hollingsworth.arsnouveau.api.RegistryHelper;
 import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 @Mod.EventBusSubscriber
-public class ExampleConfig {
+public class CreoConfig {
 
     public static ForgeConfigSpec SERVER_CONFIG;
 
