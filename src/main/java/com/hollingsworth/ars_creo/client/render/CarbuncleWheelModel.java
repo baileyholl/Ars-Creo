@@ -29,7 +29,7 @@ public class CarbuncleWheelModel extends AnimatedGeoModel<StarbuncleWheelTile> {
         super.setLivingAnimations(entity, uniqueID, customPredicate);
         IBone head = this.getAnimationProcessor().getBone("wheel");
         Direction facing = entity.getBlockState().getValue(StarbuncleWheelBlock.FACING);
-        float angle = getAngleForTe(entity, entity.getBlockPos(), ModBlockRegistry.STARBY_WHEEL.getRotationAxis(entity.getBlockState()));
+        float angle = getAngleForTe(entity, entity.getBlockPos(), ModBlockRegistry.STARBY_WHEEL.get().getRotationAxis(entity.getBlockState()));
         if(facing ==  Direction.SOUTH || facing == Direction.EAST) {
             angle = -angle;
         }
@@ -52,17 +52,17 @@ public class CarbuncleWheelModel extends AnimatedGeoModel<StarbuncleWheelTile> {
     }
 
     @Override
-    public ResourceLocation getModelLocation(StarbuncleWheelTile object) {
+    public ResourceLocation getModelResource(StarbuncleWheelTile object) {
         return new ResourceLocation(ArsCreo.MODID, "geo/starbuncle_wheel.geo.json");
     }
 
     @Override
-    public ResourceLocation getTextureLocation(StarbuncleWheelTile object) {
+    public ResourceLocation getTextureResource(StarbuncleWheelTile object) {
         return new ResourceLocation(ArsCreo.MODID, "textures/blocks/starbuncle_wheel.png");
     }
 
     @Override
-    public ResourceLocation getAnimationFileLocation(StarbuncleWheelTile animatable) {
+    public ResourceLocation getAnimationResource(StarbuncleWheelTile animatable) {
         return new ResourceLocation(ArsCreo.MODID, "animations/starbuncle_wheel_animation.json");
     }
 }

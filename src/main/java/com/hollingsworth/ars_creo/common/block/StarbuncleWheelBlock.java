@@ -30,7 +30,7 @@ public class StarbuncleWheelBlock extends DirectionalKineticBlock implements ITE
         Player player = context.getPlayer();
 
         BlockState placedOn = world.getBlockState(pos.relative(face.getOpposite()));
-        if(placedOn.is(ModBlockRegistry.STARBY_WHEEL)){
+        if(placedOn.is(ModBlockRegistry.STARBY_WHEEL.get())){
             return defaultBlockState().setValue(FACING, placedOn.getValue(FACING));
         }
 
@@ -112,6 +112,6 @@ public class StarbuncleWheelBlock extends DirectionalKineticBlock implements ITE
 
     @Override
     public BlockEntityType<? extends StarbuncleWheelTile> getTileEntityType() {
-        return ModBlockRegistry.STARBY_TILE;
+        return ModBlockRegistry.STARBY_TILE.get();
     }
 }

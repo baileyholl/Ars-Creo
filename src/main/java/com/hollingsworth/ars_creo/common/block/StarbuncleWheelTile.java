@@ -17,7 +17,7 @@ import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 public class StarbuncleWheelTile extends GeneratingKineticTileEntity implements IAnimatable {
     public StarbuncleWheelTile(BlockPos pos, BlockState state) {
-        super(ModBlockRegistry.STARBY_TILE, pos, state);
+        super(ModBlockRegistry.STARBY_TILE.get(), pos, state);
         setLazyTickRate(20);
     }
 
@@ -48,7 +48,7 @@ public class StarbuncleWheelTile extends GeneratingKineticTileEntity implements 
     @Override
     public void lazyTick() {
         super.lazyTick();
-        ModBlockRegistry.STARBY_WHEEL.updateAllSides(getBlockState(), level, worldPosition);
+        ModBlockRegistry.STARBY_WHEEL.get().updateAllSides(getBlockState(), level, worldPosition);
     }
 
     private PlayState idlePredicate(AnimationEvent event) {

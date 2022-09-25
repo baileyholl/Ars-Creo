@@ -1,16 +1,27 @@
 package com.hollingsworth.ars_creo;
 
 
+import com.hollingsworth.ars_creo.common.registry.ModBlockRegistry;
 import com.hollingsworth.ars_creo.network.ACNetworking;
 import com.hollingsworth.ars_creo.client.render.ClientHandler;
 
+import com.hollingsworth.arsnouveau.setup.BlockRegistry;
+import com.hollingsworth.arsnouveau.setup.ItemsRegistry;
+import com.hollingsworth.arsnouveau.setup.ModSetup;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegisterEvent;
+
+import java.util.Objects;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(ArsCreo.MODID)
@@ -26,6 +37,21 @@ public class ArsCreo
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
         MinecraftForge.EVENT_BUS.register(this);
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        registers(modEventBus);
+        modEventBus.addListener(ArsCreo::registerEvents);
+    }
+
+    public static void registers(IEventBus event){
+        ModBlockRegistry.BLOCK_REG.register(event);
+        ModBlockRegistry.BLOCK_ENTITY_REG.register(event);
+    }
+
+    public static void registerEvents(RegisterEvent event) {
+        if (event.getRegistryKey().equals(ForgeRegistries.Keys.ITEMS)) {
+            IForgeRegistry<Item> registry = Objects.requireNonNull(event.getForgeRegistry());
+            ModBlockRegistry.onBlockItemsRegistry(registry);
+        }
     }
 
     private void setup(final FMLCommonSetupEvent event)
