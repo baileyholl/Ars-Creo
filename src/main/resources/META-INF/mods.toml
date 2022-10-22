@@ -49,7 +49,7 @@ Adds compatibility between Ars Nouveau and Create
 [[dependencies.ars_creo]]
     modId="patchouli"
     mandatory=true
-    versionRange="[1.18.1-61,)"
+    versionRange="[1.19.2-77,)"
     ordering="AFTER"
     side="BOTH"
 
@@ -69,7 +69,7 @@ Adds compatibility between Ars Nouveau and Create
 [[dependencies.ars_creo]]
     modId="ars_nouveau"
     mandatory=true
-    versionRange="[2.0.2,)"
+    versionRange="[3.4.3,)"
     ordering="AFTER"
     side="BOTH"
 [[dependencies.ars_creo]]

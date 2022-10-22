@@ -30,7 +30,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 
-version = '3.0.0'
+version = '3.0.1'
 group = 'com.hollingsworth.ars_creo' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'ars_creo-1.19.2'
 
@@ -147,12 +147,10 @@ repositories {
 dependencies {
 
     minecraft "net.minecraftforge:forge:1.19.2-${forge_version}"
-    implementation fg.deobf("com.hollingsworth.ars_nouveau:ars_nouveau-1.18.2:2.6.4.231")
-
     implementation fg.deobf("com.simibubi.create:create-1.19.2:0.5.0.d-2:slim"){ transitive = false }
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-1.19.2:0.6.5-3")
     implementation fg.deobf("com.tterrag.registrate:Registrate:MC1.19-1.1.5")
-    implementation fg.deobf("com.hollingsworth.ars_nouveau:ars_nouveau-1.19.1:${ars_version}")
+    implementation fg.deobf("com.hollingsworth.ars_nouveau:ars_nouveau-1.19.2:${ars_version}")
 
     implementation fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
     compileOnly fg.deobf("mezz.jei:jei-1.19.2-common-api:${jei_version}")

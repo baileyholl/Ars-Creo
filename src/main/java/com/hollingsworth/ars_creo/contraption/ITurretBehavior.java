@@ -41,8 +41,8 @@ public interface ITurretBehavior {
         if(!spell.isValid()){
             return;
         }
-        EntitySpellResolver resolver = new EntitySpellResolver((new SpellContext(spell, fakePlayer)).withType(SpellContext.CasterType.TURRET));
-        if(!canTakeFromJar(context, spell.getCastingCost(), pos) && SourceUtil.takeSourceNearbyWithParticles(pos, world, 6, spell.getCastingCost()) == null) {
+        EntitySpellResolver resolver = new EntitySpellResolver((new SpellContext(world, spell, fakePlayer, new ContraptionCaster(context.contraption.entity))));
+        if(!canTakeFromJar(context, spell.getDiscountedCost(), pos) && SourceUtil.takeSourceNearbyWithParticles(pos, world, 6, spell.getDiscountedCost()) == null) {
             return;
         }
         if (resolver.castType instanceof MethodProjectile) {
@@ -59,7 +59,7 @@ public interface ITurretBehavior {
                     touchPos = touchPos.below();
                 }
 
-                resolver.onCastOnBlock(new BlockHitResult(new Vec3(touchPos.getX(), touchPos.getY(), touchPos.getZ()), direction.getOpposite(), new BlockPos(touchPos.getX(), touchPos.getY(), touchPos.getZ()), false), fakePlayer);
+                resolver.onCastOnBlock(new BlockHitResult(new Vec3(touchPos.getX(), touchPos.getY(), touchPos.getZ()), direction.getOpposite(), new BlockPos(touchPos.getX(), touchPos.getY(), touchPos.getZ()), false));
             }
 
         }
