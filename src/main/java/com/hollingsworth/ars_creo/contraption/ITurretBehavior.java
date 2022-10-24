@@ -3,6 +3,7 @@ package com.hollingsworth.ars_creo.contraption;
 import com.hollingsworth.ars_creo.network.ACNetworking;
 import com.hollingsworth.ars_creo.network.PacketUpdateJarContraption;
 import com.hollingsworth.arsnouveau.api.ANFakePlayer;
+import com.hollingsworth.arsnouveau.api.source.SourceManager;
 import com.hollingsworth.arsnouveau.api.spell.*;
 import com.hollingsworth.arsnouveau.api.util.SourceUtil;
 import com.hollingsworth.arsnouveau.common.block.BasicSpellTurret;
@@ -42,8 +43,13 @@ public interface ITurretBehavior {
             return;
         }
         EntitySpellResolver resolver = new EntitySpellResolver((new SpellContext(world, spell, fakePlayer, new ContraptionCaster(context.contraption.entity))));
-        if(!canTakeFromJar(context, spell.getDiscountedCost(), pos) && SourceUtil.takeSourceNearbyWithParticles(pos, world, 6, spell.getDiscountedCost()) == null) {
-            return;
+        if(!ContraptionUtils.removeSourceFromContraption(context, spell.getDiscountedCost(), pos)) {
+            boolean hasNearby = SourceUtil.hasSourceNearby(pos, world, 6, spell.getDiscountedCost());
+            int size = SourceManager.INSTANCE.getSetForLevel(world).size();
+            System.out.println(size);
+            if(!hasNearby || SourceUtil.takeSourceNearbyWithParticles(pos, world, 6, spell.getDiscountedCost()) == null){
+                return;
+            }
         }
         if (resolver.castType instanceof MethodProjectile) {
             spellCaster.playSound(pos, world, null, spellCaster.getCurrentSound(), SoundSource.BLOCKS);
@@ -71,8 +77,6 @@ public interface ITurretBehavior {
         facingVec.normalize();
 
         Vec3 effectiveMovementVec = facingVec.scale(0.5f).add(context.motion);
-
-
         FakePlayer fakePlayer = FakePlayerFactory.getMinecraft(world);
         fakePlayer.setPos(pos.getX(), pos.getY(), pos.getZ());
         EntityProjectileSpell spell = new EntityProjectileSpell(world, resolver);
@@ -82,44 +86,11 @@ public interface ITurretBehavior {
         double z = pos.getZ() + facingVec.z * .7 + .5;
         spell.setPos(x,y,z);
         spell.shoot(effectiveMovementVec.x, effectiveMovementVec.y, effectiveMovementVec.z, 0.4f, 0);
-
         world.addFreshEntity(spell);
     }
 
     default Direction getClosestFacingDirection(Vec3 exactFacing) {
         return Direction.getNearest(exactFacing.x, exactFacing.y, exactFacing.z);
-    }
-
-    default boolean canTakeFromJar(MovementContext context, int amount, BlockPos turretPos){
-        ServerLevel world = (ServerLevel) context.world;
-        Map<BlockPos, StructureTemplate.StructureBlockInfo> structureBlocks =  context.contraption.getBlocks();
-        for(StructureTemplate.StructureBlockInfo blockInfo : structureBlocks.values()){
-            if(blockInfo.state.getBlock() instanceof CreativeSourceJar)
-                return true;
-            if(blockInfo.state.getBlock() instanceof SourceJar){
-                int totalSource = blockInfo.nbt.getInt(SourceJarTile.SOURCE_TAG);
-                if(totalSource >= amount) {
-                    int currentFillState = getFillState(totalSource);
-                    int adjustedAmount = totalSource - amount;
-                    int nextFillState = getFillState(adjustedAmount);
-                    blockInfo.nbt.putInt(SourceJarTile.SOURCE_TAG, adjustedAmount);
-                    if(currentFillState != nextFillState)
-                        ACNetworking.sendToNearby(world, turretPos, new PacketUpdateJarContraption(context.contraption.entity.getId(), blockInfo.pos, blockInfo.nbt, nextFillState));
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    default int getFillState(int source){
-        int fillState = 0;
-        if (source > 0 && source < 1000) {
-            fillState = 1;
-        } else if (source != 0) {
-            fillState = source / 1000 + 1;
-        }
-        return fillState;
     }
 
     default Position getDispensePosition(BlockPos pos, BlockState state) {

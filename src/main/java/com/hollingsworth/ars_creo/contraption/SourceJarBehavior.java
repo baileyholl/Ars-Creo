@@ -1,26 +1,44 @@
 package com.hollingsworth.ars_creo.contraption;
 
-import com.hollingsworth.arsnouveau.common.block.SourceJar;
-import com.hollingsworth.arsnouveau.common.block.tile.SourceJarTile;
-import com.jozufozu.flywheel.core.virtual.VirtualRenderWorld;
+import com.hollingsworth.ars_creo.contraption.source.ContraptionSourceProvider;
+import com.hollingsworth.arsnouveau.api.source.ISpecialSourceProvider;
+import com.hollingsworth.arsnouveau.api.source.SourceManager;
 import com.simibubi.create.content.contraptions.components.structureMovement.MovementBehaviour;
 import com.simibubi.create.content.contraptions.components.structureMovement.MovementContext;
-import com.simibubi.create.content.contraptions.components.structureMovement.render.ContraptionMatrices;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 
 public class SourceJarBehavior implements MovementBehaviour {
-
 
     @Override
     public boolean renderAsNormalTileEntity() {
         return true;
     }
 
-    public int getSource(MovementContext context){
-        return context.tileData.getInt(SourceJarTile.SOURCE_TAG);
+    @Override
+    public void startMoving(MovementContext context) {
     }
 
+    @Override
+    public void tick(MovementContext context) {
+        if(context.contraption == null || context.contraption.entity == null || context.world == null || context.world.isClientSide)
+            return;
+
+        for(ISpecialSourceProvider specialSourceProvider : SourceManager.INSTANCE.getSetForLevel(context.world)){
+            if(specialSourceProvider instanceof ContraptionSourceProvider contraptionSourceProvider && contraptionSourceProvider.contraption.entity == context.contraption.entity){
+                return;
+            }
+        }
+        SourceManager.INSTANCE.addInterface(context.world, new ContraptionSourceProvider(context.contraption));
+    }
+
+    @Override
+    public void stopMoving(MovementContext context) {
+        ISpecialSourceProvider toRemove = null;
+        for(ISpecialSourceProvider specialSourceProvider : SourceManager.INSTANCE.getSetForLevel(context.world)){
+            if(specialSourceProvider instanceof ContraptionSourceProvider contraptionSourceProvider && contraptionSourceProvider.contraption != null && contraptionSourceProvider.contraption.entity == context.contraption.entity){
+                toRemove = specialSourceProvider;
+            }
+        }
+        if(toRemove != null)
+            SourceManager.INSTANCE.getSetForLevel(context.world).remove(toRemove);
+    }
 }
