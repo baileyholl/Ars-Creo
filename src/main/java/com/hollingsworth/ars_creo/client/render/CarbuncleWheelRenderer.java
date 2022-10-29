@@ -8,7 +8,8 @@ import com.mojang.math.Vector3f;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.core.Direction;
-import software.bernie.geckolib3.renderers.geo.GeoBlockRenderer;
+import software.bernie.ars_nouveau.geckolib3.renderers.geo.GeoBlockRenderer;
+
 
 public class CarbuncleWheelRenderer extends GeoBlockRenderer<StarbuncleWheelTile> {
     public CarbuncleWheelRenderer(BlockEntityRendererProvider.Context renderManager) {

@@ -10,9 +10,9 @@ import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.processor.IBone;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
+import software.bernie.ars_nouveau.geckolib3.core.event.predicate.AnimationEvent;
+import software.bernie.ars_nouveau.geckolib3.core.processor.IBone;
+import software.bernie.ars_nouveau.geckolib3.model.AnimatedGeoModel;
 
 import javax.annotation.Nullable;
 

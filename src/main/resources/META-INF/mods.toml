@@ -61,12 +61,6 @@ Adds compatibility between Ars Nouveau and Create
     side="BOTH"
 
 [[dependencies.ars_creo]]
-    modId="geckolib3"
-    mandatory=true
-    versionRange="[3.0.1,)"
-    ordering="AFTER"
-    side="BOTH"
-[[dependencies.ars_creo]]
     modId="ars_nouveau"
     mandatory=true
     versionRange="[2.0.2,)"
