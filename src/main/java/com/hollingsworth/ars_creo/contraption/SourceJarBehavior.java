@@ -15,19 +15,12 @@ public class SourceJarBehavior implements MovementBehaviour {
 
     @Override
     public void startMoving(MovementContext context) {
+        addIfMissing(context);
     }
 
     @Override
     public void tick(MovementContext context) {
-        if(context.contraption == null || context.contraption.entity == null || context.world == null || context.world.isClientSide)
-            return;
-
-        for(ISpecialSourceProvider specialSourceProvider : SourceManager.INSTANCE.getSetForLevel(context.world)){
-            if(specialSourceProvider instanceof ContraptionSourceProvider contraptionSourceProvider && contraptionSourceProvider.contraption.entity == context.contraption.entity){
-                return;
-            }
-        }
-        SourceManager.INSTANCE.addInterface(context.world, new ContraptionSourceProvider(context.contraption));
+        addIfMissing(context);
     }
 
     @Override
@@ -40,5 +33,17 @@ public class SourceJarBehavior implements MovementBehaviour {
         }
         if(toRemove != null)
             SourceManager.INSTANCE.getSetForLevel(context.world).remove(toRemove);
+    }
+
+    public void addIfMissing(MovementContext context){
+        if(context.contraption == null || context.contraption.entity == null || context.world == null || context.world.isClientSide)
+            return;
+
+        for(ISpecialSourceProvider specialSourceProvider : SourceManager.INSTANCE.getSetForLevel(context.world)){
+            if(specialSourceProvider instanceof ContraptionSourceProvider contraptionSourceProvider && contraptionSourceProvider.contraption.entity == context.contraption.entity){
+                return;
+            }
+        }
+        SourceManager.INSTANCE.addInterface(context.world, new ContraptionSourceProvider(context.contraption));
     }
 }
