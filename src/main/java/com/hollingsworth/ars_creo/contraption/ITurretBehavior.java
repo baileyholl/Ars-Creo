@@ -47,7 +47,7 @@ public interface ITurretBehavior {
             boolean hasNearby = SourceUtil.hasSourceNearby(pos, world, 6, spell.getDiscountedCost());
             int size = SourceManager.INSTANCE.getSetForLevel(world).size();
             System.out.println(size);
-            if(!hasNearby || SourceUtil.takeSourceNearbyWithParticles(pos, world, 6, spell.getDiscountedCost()) == null){
+            if(!hasNearby || SourceUtil.takeSourceWithParticles(pos, world, 6, spell.getDiscountedCost()) == null){
                 return;
             }
         }

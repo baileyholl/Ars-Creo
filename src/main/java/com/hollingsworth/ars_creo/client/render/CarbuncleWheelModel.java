@@ -19,15 +19,9 @@ import javax.annotation.Nullable;
 
 public class CarbuncleWheelModel extends AnimatedGeoModel<StarbuncleWheelTile> {
 
-
     @Override
-    public void setLivingAnimations(StarbuncleWheelTile entity, Integer uniqueID) {
-        super.setLivingAnimations(entity, uniqueID);
-    }
-
-    @Override
-    public void setLivingAnimations(StarbuncleWheelTile entity, Integer uniqueID, @Nullable AnimationEvent customPredicate) {
-        super.setLivingAnimations(entity, uniqueID, customPredicate);
+    public void setCustomAnimations(StarbuncleWheelTile entity, int uniqueID, @Nullable AnimationEvent customPredicate) {
+        super.setCustomAnimations(entity, uniqueID, customPredicate);
         IBone head = this.getAnimationProcessor().getBone("wheel");
         Direction facing = entity.getBlockState().getValue(StarbuncleWheelBlock.FACING);
         float angle = getAngleForTe(entity, entity.getBlockPos(), ModBlockRegistry.STARBY_WHEEL.get().getRotationAxis(entity.getBlockState()));
@@ -51,19 +45,23 @@ public class CarbuncleWheelModel extends AnimatedGeoModel<StarbuncleWheelTile> {
         }
         return offset;
     }
+    static final ResourceLocation model = new ResourceLocation(ArsCreo.MODID, "geo/starbuncle_wheel.geo.json");
+    static final ResourceLocation texture = new ResourceLocation(ArsCreo.MODID, "textures/blocks/starbuncle_wheel.png");
+    static final ResourceLocation animations = new ResourceLocation(ArsCreo.MODID, "animations/starbuncle_wheel_animation.json");
 
     @Override
     public ResourceLocation getModelResource(StarbuncleWheelTile object) {
-        return new ResourceLocation(ArsCreo.MODID, "geo/starbuncle_wheel.geo.json");
+        return model;
     }
 
     @Override
     public ResourceLocation getTextureResource(StarbuncleWheelTile object) {
-        return new ResourceLocation(ArsCreo.MODID, "textures/blocks/starbuncle_wheel.png");
+        return texture;
     }
 
     @Override
     public ResourceLocation getAnimationResource(StarbuncleWheelTile animatable) {
-        return new ResourceLocation(ArsCreo.MODID, "animations/starbuncle_wheel_animation.json");
+        return animations;
     }
+
 }
