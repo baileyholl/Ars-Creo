@@ -14,6 +14,7 @@ import software.bernie.ars_nouveau.geckolib3.core.controller.AnimationController
 import software.bernie.ars_nouveau.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.ars_nouveau.geckolib3.core.manager.AnimationData;
 import software.bernie.ars_nouveau.geckolib3.core.manager.AnimationFactory;
+import software.bernie.ars_nouveau.geckolib3.util.GeckoLibUtil;
 
 
 public class StarbuncleWheelTile extends GeneratingKineticTileEntity implements IAnimatable {
@@ -24,10 +25,10 @@ public class StarbuncleWheelTile extends GeneratingKineticTileEntity implements 
 
     @Override
     public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController(this, "controller", 1, this::idlePredicate));
+        data.addAnimationController(new AnimationController<>(this, "controller", 1, this::idlePredicate));
     }
 
-    AnimationFactory factory = new AnimationFactory(this);
+    AnimationFactory factory = GeckoLibUtil.createFactory(this);
     @Override
     public AnimationFactory getFactory() {
         return factory;
@@ -52,8 +53,8 @@ public class StarbuncleWheelTile extends GeneratingKineticTileEntity implements 
         ModBlockRegistry.STARBY_WHEEL.get().updateAllSides(getBlockState(), level, worldPosition);
     }
 
-    private PlayState idlePredicate(AnimationEvent event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("run", true));
+    private PlayState idlePredicate(AnimationEvent<?> event) {
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("run"));
         return PlayState.CONTINUE;
     }
 
