@@ -1,8 +1,8 @@
 package com.hollingsworth.ars_creo.common.block;
 
 import com.hollingsworth.ars_creo.common.registry.ModBlockRegistry;
-import com.simibubi.create.content.contraptions.base.GeneratingKineticTileEntity;
-import com.simibubi.create.content.contraptions.components.crank.HandCrankBlock;
+import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
+import com.simibubi.create.content.kinetics.crank.HandCrankBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,7 +17,7 @@ import software.bernie.ars_nouveau.geckolib3.core.manager.AnimationFactory;
 import software.bernie.ars_nouveau.geckolib3.util.GeckoLibUtil;
 
 
-public class StarbuncleWheelTile extends GeneratingKineticTileEntity implements IAnimatable {
+public class StarbuncleWheelTile extends GeneratingKineticBlockEntity implements IAnimatable {
     public StarbuncleWheelTile(BlockPos pos, BlockState state) {
         super(ModBlockRegistry.STARBY_TILE.get(), pos, state);
         setLazyTickRate(20);

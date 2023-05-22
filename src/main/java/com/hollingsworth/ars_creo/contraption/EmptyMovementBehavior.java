@@ -1,6 +1,7 @@
 package com.hollingsworth.ars_creo.contraption;
 
-import com.simibubi.create.content.contraptions.components.structureMovement.MovementBehaviour;
+
+import com.simibubi.create.content.contraptions.behaviour.MovementBehaviour;
 
 public class EmptyMovementBehavior implements MovementBehaviour {
 }

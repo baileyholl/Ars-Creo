@@ -2,8 +2,8 @@ package com.hollingsworth.ars_creo.contraption.source;
 
 import com.hollingsworth.arsnouveau.api.source.ISourceTile;
 import com.hollingsworth.arsnouveau.api.source.ISpecialSourceProvider;
-import com.simibubi.create.content.contraptions.components.structureMovement.AbstractContraptionEntity;
-import com.simibubi.create.content.contraptions.components.structureMovement.Contraption;
+
+import com.simibubi.create.content.contraptions.Contraption;
 import net.minecraft.core.BlockPos;
 
 public class ContraptionSourceProvider implements ISpecialSourceProvider {

@@ -2,10 +2,8 @@ package com.hollingsworth.ars_creo.contraption.source;
 
 import com.hollingsworth.ars_creo.contraption.ContraptionUtils;
 import com.hollingsworth.arsnouveau.api.source.ISourceTile;
-import com.simibubi.create.content.contraptions.components.structureMovement.AbstractContraptionEntity;
-import com.simibubi.create.content.contraptions.components.structureMovement.Contraption;
+import com.simibubi.create.content.contraptions.Contraption;
 
-import java.util.List;
 
 public class ContraptionSource implements ISourceTile{
     Contraption contraption;

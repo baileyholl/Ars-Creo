@@ -1,19 +1,13 @@
 package com.hollingsworth.ars_creo.contraption;
 
-import com.hollingsworth.ars_creo.network.ACNetworking;
-import com.hollingsworth.ars_creo.network.PacketUpdateJarContraption;
 import com.hollingsworth.arsnouveau.api.ANFakePlayer;
-import com.hollingsworth.arsnouveau.api.source.SourceManager;
 import com.hollingsworth.arsnouveau.api.spell.*;
 import com.hollingsworth.arsnouveau.api.util.SourceUtil;
 import com.hollingsworth.arsnouveau.common.block.BasicSpellTurret;
-import com.hollingsworth.arsnouveau.common.block.CreativeSourceJar;
-import com.hollingsworth.arsnouveau.common.block.SourceJar;
-import com.hollingsworth.arsnouveau.common.block.tile.SourceJarTile;
 import com.hollingsworth.arsnouveau.common.entity.EntityProjectileSpell;
 import com.hollingsworth.arsnouveau.common.spell.method.MethodProjectile;
 import com.hollingsworth.arsnouveau.common.spell.method.MethodTouch;
-import com.simibubi.create.content.contraptions.components.structureMovement.MovementContext;
+import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
@@ -21,13 +15,10 @@ import net.minecraft.core.PositionImpl;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
-
-import java.util.Map;
 
 public interface ITurretBehavior {
 
@@ -37,7 +28,7 @@ public interface ITurretBehavior {
         Direction direction = context.state.getValue(BasicSpellTurret.FACING);
         FakePlayer fakePlayer = ANFakePlayer.getPlayer(world);
         fakePlayer.setPos(pos.getX(), pos.getY(), pos.getZ());
-        TurretSpellCaster spellCaster = new TurretSpellCaster(context.tileData);
+        TurretSpellCaster spellCaster = new TurretSpellCaster(context.blockEntityData);
         Spell spell = spellCaster.getSpell();
         if(!spell.isValid()){
             return;

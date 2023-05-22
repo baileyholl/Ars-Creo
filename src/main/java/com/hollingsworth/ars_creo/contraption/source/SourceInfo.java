@@ -3,7 +3,7 @@ package com.hollingsworth.ars_creo.contraption.source;
 import com.hollingsworth.ars_creo.network.ACNetworking;
 import com.hollingsworth.ars_creo.network.PacketUpdateJarContraption;
 import com.hollingsworth.arsnouveau.common.block.tile.SourceJarTile;
-import com.simibubi.create.content.contraptions.components.structureMovement.AbstractContraptionEntity;
+import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 

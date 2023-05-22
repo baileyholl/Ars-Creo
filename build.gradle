@@ -100,14 +100,15 @@ minecraft {
     }
 }
 repositories {
-
     maven {
-        url = "https://maven.theillusivec4.top/"
+        url "https://maven.tterrag.com/"
+        content {
+            includeGroup "com.simibubi.create"
+            includeGroup "com.jozufozu.flywheel"
+        }
     }
     maven {
-        // location of the maven that hosts JEI files
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
+        url = "https://maven.theillusivec4.top/"
     }
     maven {
         // location of a maven mirror for JEI files, as a fallback
@@ -121,13 +122,6 @@ repositories {
         url "https://www.cursemaven.com"
         content {
             includeGroup "curse.maven"
-        }
-    }
-    maven {
-        url "https://maven.tterrag.com/"
-        content {
-            includeGroup "com.simibubi.create"
-            includeGroup "com.jozufozu.flywheel"
         }
     }
 
@@ -145,7 +139,7 @@ repositories {
 dependencies {
 
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
-    implementation fg.deobf("com.simibubi.create:create-${mc_version}:${create_version}:slim"){ transitive = false }
+    implementation fg.deobf("com.simibubi.create:create-1.19.2:0.5.1.a-29:slim"){ transitive = false }
     implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${mc_version}:${flywheel_version}")
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
     implementation fg.deobf("com.hollingsworth.ars_nouveau:ars_nouveau-${mc_version}:${ars_version}")
