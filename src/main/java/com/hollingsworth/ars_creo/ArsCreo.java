@@ -21,7 +21,6 @@ public class ArsCreo
 
     public ArsCreo() {
         ArsNouveauRegistry.registerGlyphs();
-        CreateCompat.setup();
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, CreoConfig.SERVER_CONFIG);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
@@ -31,6 +30,9 @@ public class ArsCreo
     private void setup(final FMLCommonSetupEvent event)
     {
         ACNetworking.registerMessages();
+        event.enqueueWork(() ->{
+            CreateCompat.setup();
+        });
     }
 
 

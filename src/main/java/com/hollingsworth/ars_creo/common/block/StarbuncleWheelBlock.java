@@ -1,8 +1,9 @@
 package com.hollingsworth.ars_creo.common.block;
 
 import com.hollingsworth.ars_creo.common.registry.ModBlockRegistry;
-import com.simibubi.create.content.contraptions.base.DirectionalKineticBlock;
-import com.simibubi.create.foundation.block.ITE;
+
+import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
+import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.utility.worldWrappers.WrappedWorld;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -15,7 +16,7 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class StarbuncleWheelBlock extends DirectionalKineticBlock implements ITE<StarbuncleWheelTile> {
+public class StarbuncleWheelBlock extends DirectionalKineticBlock implements IBE<StarbuncleWheelTile> {
     public StarbuncleWheelBlock(Properties p_i48440_1_) {
         super(p_i48440_1_);
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
@@ -42,8 +43,8 @@ public class StarbuncleWheelBlock extends DirectionalKineticBlock implements ITE
     }
 
     private void updateWheelSpeed(LevelAccessor world, BlockPos pos) {
-        withTileEntityDo(world, pos, StarbuncleWheelTile::updateGeneratedRotation);
-        withTileEntityDo(world, pos, (te) -> te.setChanged());
+        withBlockEntityDo(world, pos, StarbuncleWheelTile::updateGeneratedRotation);
+        withBlockEntityDo(world, pos, (te) -> te.setChanged());
     }
 
     public void updateAllSides(BlockState state, Level worldIn, BlockPos pos) {
@@ -106,12 +107,12 @@ public class StarbuncleWheelBlock extends DirectionalKineticBlock implements ITE
 
 
     @Override
-    public Class<StarbuncleWheelTile> getTileEntityClass() {
+    public Class<StarbuncleWheelTile> getBlockEntityClass() {
         return StarbuncleWheelTile.class;
     }
 
     @Override
-    public BlockEntityType<? extends StarbuncleWheelTile> getTileEntityType() {
+    public BlockEntityType<? extends StarbuncleWheelTile> getBlockEntityType() {
         return ModBlockRegistry.STARBY_TILE;
     }
 }

@@ -5,7 +5,7 @@ import com.hollingsworth.ars_creo.contraption.*;
 import com.hollingsworth.arsnouveau.setup.BlockRegistry;
 import com.simibubi.create.AllInteractionBehaviours;
 import com.simibubi.create.AllMovementBehaviours;
-import com.simibubi.create.foundation.block.BlockStressDefaults;
+import com.simibubi.create.content.kinetics.BlockStressDefaults;
 import net.minecraft.resources.ResourceLocation;
 
 

@@ -1,8 +1,9 @@
 package com.hollingsworth.ars_creo.common.block;
 
+import com.hollingsworth.ars_creo.CreoConfig;
 import com.hollingsworth.ars_creo.common.registry.ModBlockRegistry;
-import com.simibubi.create.content.contraptions.base.GeneratingKineticTileEntity;
-import com.simibubi.create.content.contraptions.components.crank.HandCrankBlock;
+import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
+import com.simibubi.create.content.kinetics.crank.HandCrankBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
@@ -15,7 +16,7 @@ import software.bernie.ars_nouveau.geckolib3.core.event.predicate.AnimationEvent
 import software.bernie.ars_nouveau.geckolib3.core.manager.AnimationData;
 import software.bernie.ars_nouveau.geckolib3.core.manager.AnimationFactory;
 
-public class StarbuncleWheelTile extends GeneratingKineticTileEntity implements IAnimatable {
+public class StarbuncleWheelTile extends GeneratingKineticBlockEntity implements IAnimatable {
     public StarbuncleWheelTile(BlockPos pos, BlockState state) {
         super(ModBlockRegistry.STARBY_TILE, pos, state);
         setLazyTickRate(20);
@@ -34,11 +35,11 @@ public class StarbuncleWheelTile extends GeneratingKineticTileEntity implements 
 
     @Override
     public float getGeneratedSpeed() {
-        int spd = 16;
+        int spd = CreoConfig.WHEEL_BASE_SPEED.get();
         Direction direction = getBlockState().getValue(StarbuncleWheelBlock.FACING);
         if(direction != Direction.UP && direction != Direction.DOWN) {
             if (level.getBlockState(getBlockPos().relative(direction.getClockWise())).is(Tags.Blocks.STORAGE_BLOCKS_GOLD)) {
-                spd = 24;
+                spd = CreoConfig.WHEEL_BONUS_SPEED.get();
             }
         }
 

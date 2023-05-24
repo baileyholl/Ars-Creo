@@ -1,3 +1,4 @@
+
 buildscript {
     repositories {
         maven { url 'https://files.minecraftforge.net/maven' }
@@ -30,7 +31,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 
-version = '2.1.4'
+version = '2.2.0'
 group = 'com.hollingsworth.ars_creo' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'ars_creo-1.18.2'
 
@@ -114,11 +115,6 @@ repositories {
         url = "https://maven.theillusivec4.top/"
     }
     maven {
-        // location of the maven that hosts JEI files
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven {
         // location of a maven mirror for JEI files, as a fallback
         name = "ModMaven"
         url = "https://modmaven.k-4u.nl"
@@ -154,16 +150,16 @@ repositories {
 }
 dependencies {
 
-    minecraft 'net.minecraftforge:forge:1.18.2-40.1.73'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.2.4'
     implementation fg.deobf("com.hollingsworth.ars_nouveau:ars_nouveau-1.18.2:2.8.0.274")
 
 //    implementation fg.deobf("com.simibubi.create:create-1.18.2:0.5.0.d-168"){
 //        transitive = false
 //    }
 
-    implementation fg.deobf("maven.modrinth:create:1.18.2-0.5.0.d")
+    implementation fg.deobf("maven.modrinth:create:1.18.2-0.5.1.a")
 
-    implementation fg.deobf("curse.maven:exp-486392:3934664")  // flywheel
+    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-1.18.2:0.6.8.a-99")
 
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67:api")
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.18.2-67")

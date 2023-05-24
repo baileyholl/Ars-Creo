@@ -69,6 +69,6 @@ Adds compatibility between Ars Nouveau and Create
 [[dependencies.ars_creo]]
     modId="create"
     mandatory=true
-    versionRange="[0.5,)"
+    versionRange="[0.5.1,)"
     ordering="AFTER"
     side="BOTH"

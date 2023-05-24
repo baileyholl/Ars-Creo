@@ -4,8 +4,8 @@ import com.hollingsworth.ars_creo.ArsCreo;
 import com.hollingsworth.ars_creo.common.block.StarbuncleWheelBlock;
 import com.hollingsworth.ars_creo.common.block.StarbuncleWheelTile;
 import com.hollingsworth.ars_creo.common.registry.ModBlockRegistry;
-import com.simibubi.create.content.contraptions.base.KineticTileEntity;
-import com.simibubi.create.content.contraptions.relays.elementary.ICogWheel;
+import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
+import com.simibubi.create.content.kinetics.simpleRelays.ICogWheel;
 import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -36,12 +36,12 @@ public class CarbuncleWheelModel extends AnimatedGeoModel<StarbuncleWheelTile> {
         head.setRotationY( angle);
     }
 
-    public static float getAngleForTe(KineticTileEntity te, final BlockPos pos, Direction.Axis axis) {
+    public static float getAngleForTe(KineticBlockEntity te, final BlockPos pos, Direction.Axis axis) {
         float time = AnimationTickHolder.getRenderTime(te.getLevel());
         float offset = getRotationOffsetForPosition(te, pos, axis);
         return ((time * te.getSpeed() * 3f / 10 + offset) % 360) / 180 * (float) Math.PI;
     }
-    protected static float getRotationOffsetForPosition(KineticTileEntity te, final BlockPos pos, final Direction.Axis axis) {
+    protected static float getRotationOffsetForPosition(KineticBlockEntity te, final BlockPos pos, final Direction.Axis axis) {
         float offset = ICogWheel.isLargeCog(te.getBlockState()) ? 11.25f : 0;
         double d = (((axis == Direction.Axis.X) ? 0 : pos.getX()) + ((axis == Direction.Axis.Y) ? 0 : pos.getY())
                 + ((axis == Direction.Axis.Z) ? 0 : pos.getZ())) % 2;
