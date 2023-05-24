@@ -1,5 +1,6 @@
 package com.hollingsworth.ars_creo.common.block;
 
+import com.hollingsworth.ars_creo.CreoConfig;
 import com.hollingsworth.ars_creo.common.registry.ModBlockRegistry;
 import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
 import com.simibubi.create.content.kinetics.crank.HandCrankBlock;
@@ -36,11 +37,11 @@ public class StarbuncleWheelTile extends GeneratingKineticBlockEntity implements
 
     @Override
     public float getGeneratedSpeed() {
-        int spd = 16;
+        int spd = CreoConfig.WHEEL_BASE_SPEED.get();
         Direction direction = getBlockState().getValue(StarbuncleWheelBlock.FACING);
         if(direction != Direction.UP && direction != Direction.DOWN) {
             if (level.getBlockState(getBlockPos().relative(direction.getClockWise())).is(Tags.Blocks.STORAGE_BLOCKS_GOLD)) {
-                spd = 24;
+                spd = CreoConfig.WHEEL_BONUS_SPEED.get();
             }
         }
 
