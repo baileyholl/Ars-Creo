@@ -24,7 +24,6 @@ public class ContraptionUtils {
         List<SourceInfo> sourceInfos = getSourceBlocks(context.contraption);
         for(SourceInfo info : sourceInfos){
             if(info.blockInfo.state().getBlock() == BlockRegistry.CREATIVE_SOURCE_JAR.get()){
-                System.out.println("creative");
                 return true;
             }
             amountOnContraption += info.getAmount();
@@ -35,14 +34,12 @@ public class ContraptionUtils {
         for(SourceInfo info : sourceInfos){
             if(info.getAmount() >= amountLeft){
                 info.removeWithUpdate(world, amountLeft, context.contraption.entity);
-                System.out.println("removing with update");
                 return true;
             }else{
                 amountLeft -= info.getAmount();
                 info.removeWithUpdate(world, info.getAmount(), context.contraption.entity);
             }
         }
-        System.out.println("Continueing");
         return true;
     }
 
