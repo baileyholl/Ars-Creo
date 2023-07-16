@@ -4,7 +4,8 @@ import com.hollingsworth.ars_creo.contraption.source.SourceInfo;
 import com.hollingsworth.arsnouveau.common.block.CreativeSourceJar;
 import com.hollingsworth.arsnouveau.common.block.SourceJar;
 import com.hollingsworth.arsnouveau.common.block.tile.SourceJarTile;
-import com.hollingsworth.arsnouveau.setup.BlockRegistry;
+
+import com.hollingsworth.arsnouveau.setup.registry.BlockRegistry;
 import com.simibubi.create.content.contraptions.Contraption;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 import net.minecraft.core.BlockPos;
@@ -22,7 +23,7 @@ public class ContraptionUtils {
         int amountOnContraption = 0;
         List<SourceInfo> sourceInfos = getSourceBlocks(context.contraption);
         for(SourceInfo info : sourceInfos){
-            if(info.blockInfo.state.getBlock() == BlockRegistry.CREATIVE_SOURCE_JAR){
+            if(info.blockInfo.state().getBlock() == BlockRegistry.CREATIVE_SOURCE_JAR.get()){
                 System.out.println("creative");
                 return true;
             }
@@ -48,11 +49,11 @@ public class ContraptionUtils {
     public static List<SourceInfo> getSourceBlocks(Contraption contraption){
         List<SourceInfo> sourceBlocks = new ArrayList<>();
         for(StructureTemplate.StructureBlockInfo blockInfo : contraption.getBlocks().values()){
-            if(blockInfo.state.getBlock() instanceof SourceJar){
-                int totalSource = blockInfo.nbt.getInt(SourceJarTile.SOURCE_TAG);
+            if(blockInfo.state().getBlock() instanceof SourceJar){
+                int totalSource = blockInfo.nbt().getInt(SourceJarTile.SOURCE_TAG);
                 sourceBlocks.add(new SourceInfo(blockInfo, totalSource));
             }
-            if(blockInfo.state.getBlock() instanceof CreativeSourceJar){
+            if(blockInfo.state().getBlock() instanceof CreativeSourceJar){
                 sourceBlocks.add(new SourceInfo(blockInfo, 10000));
             }
         }

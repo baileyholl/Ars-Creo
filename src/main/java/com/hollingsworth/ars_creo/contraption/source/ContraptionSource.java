@@ -59,7 +59,7 @@ public class ContraptionSource implements ISourceTile{
             int room = 10000 - sourceInfo.getAmount();
             if(room > 0){
                 int toAdd = Math.min(room, remaining);
-                sourceInfo.addWithUpdate(contraption.entity.level, toAdd, contraption.entity);
+                sourceInfo.addWithUpdate(contraption.entity.level(), toAdd, contraption.entity);
                 remaining -= toAdd;
             }
         }
@@ -75,7 +75,7 @@ public class ContraptionSource implements ISourceTile{
             int amountInJar = sourceInfo.getAmount();
             if(amountInJar > 0){
                 int toRemove = Math.min(amountInJar, remaining);
-                sourceInfo.removeWithUpdate(contraption.entity.level, toRemove, contraption.entity);
+                sourceInfo.removeWithUpdate(contraption.entity.level(), toRemove, contraption.entity);
                 remaining -= toRemove;
                 System.out.println(amountInJar + " " + toRemove + " " + remaining);
             }

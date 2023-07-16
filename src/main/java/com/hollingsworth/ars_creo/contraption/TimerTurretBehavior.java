@@ -12,7 +12,7 @@ public class TimerTurretBehavior extends AbstractTurretBehavior{
         Level level = context.world;
         int ticksToSignal = context.blockEntityData.getInt("time");
         if (!level.isClientSide && ticksToSignal > 0 &&  level.getGameTime() % (long)ticksToSignal == 0L) {
-            castSpell(context, new BlockPos(context.position));
+            castSpell(context, BlockPos.containing(context.position));
         }
     }
 }

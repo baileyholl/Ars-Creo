@@ -13,7 +13,7 @@ public class BasicTurretBehavior extends MovingInteractionBehaviour implements I
 
     @Override
     public boolean handlePlayerInteraction(Player player, InteractionHand activeHand, BlockPos localPos, AbstractContraptionEntity contraptionEntity) {
-        if(player.level.isClientSide)
+        if(player.level().isClientSide)
             return true;
         StructureTemplate.StructureBlockInfo info = contraptionEntity.getContraption()
                 .getBlocks()
@@ -32,7 +32,7 @@ public class BasicTurretBehavior extends MovingInteractionBehaviour implements I
         if (ctx == null)
             return false;
 
-        castSpell(ctx,new BlockPos(ctx.position));
+        castSpell(ctx, BlockPos.containing(ctx.position));
 
         return true;
     }

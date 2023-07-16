@@ -35,7 +35,7 @@ archivesBaseName = "ars_creo-${mc_version}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 minecraft {
-    mappings channel: 'parchment', version: "${parchment_version}-${mc_version}"
+    mappings channel: 'parchment', version: "2023.07.02-1.20.1"
     // makeObfSourceJar = false // an Srg named sources jar is made by default. uncomment this to disable.
 
     // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
@@ -100,20 +100,14 @@ minecraft {
     }
 }
 repositories {
-    maven {
-        url "https://maven.tterrag.com/"
-        content {
-            includeGroup "com.simibubi.create"
-            includeGroup "com.jozufozu.flywheel"
+    repositories {
+        maven {
+            name = 'tterrag maven'
+            url = 'https://maven.tterrag.com/'
         }
     }
     maven {
         url = "https://maven.theillusivec4.top/"
-    }
-    maven {
-        // location of a maven mirror for JEI files, as a fallback
-        name = "ModMaven"
-        url = "https://modmaven.k-4u.nl"
     }
     maven {
         url "https://maven.blamejared.com"
@@ -126,6 +120,12 @@ repositories {
     }
 
     maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+    maven {
+        url "https://www.cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
     mavenCentral()
     mavenLocal()
     maven {
@@ -135,25 +135,28 @@ repositories {
             includeGroup "maven.modrinth"
         }
     }
+
+    maven { url 'https://jitpack.io' }
 }
 dependencies {
 
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
-    implementation fg.deobf("com.simibubi.create:create-1.19.2:0.5.1.a-29:slim"){ transitive = false }
-    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${mc_version}:${flywheel_version}")
+    implementation fg.deobf("com.simibubi.create:create-1.20.1:0.5.1.d-9:slim"){ transitive = false }
+    implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-1.20:${flywheel_version}")
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
     implementation fg.deobf("com.hollingsworth.ars_nouveau:ars_nouveau-${mc_version}:${ars_version}")
 
     implementation fg.deobf("vazkii.patchouli:Patchouli:${mc_version}-${patchouli_version}")
+    implementation("com.github.llamalad7.mixinextras:mixinextras-forge:${mixin_extras_version}")
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
-    // at runtime, use the full JEI
+//     at runtime, use the full JEI
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-common:${jei_version}")
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
 
-    implementation fg.deobf("top.theillusivec4.curios:curios-forge:${mc_version}-${curios_version}")
-
-    implementation fg.deobf("com.github.glitchfiend:TerraBlender-forge:${terrablender_version}")
+//    implementation fg.deobf("top.theillusivec4.curios:curios-forge:${mc_version}-${curios_version}")
+    implementation fg.deobf("curse.maven:curios-309927:4583413")
+    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-${mc_version}:${gecko_version}")
 
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 

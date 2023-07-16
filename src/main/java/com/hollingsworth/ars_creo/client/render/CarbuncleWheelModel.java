@@ -10,25 +10,22 @@ import com.simibubi.create.foundation.utility.AnimationTickHolder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import software.bernie.ars_nouveau.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.ars_nouveau.geckolib3.core.processor.IBone;
-import software.bernie.ars_nouveau.geckolib3.model.AnimatedGeoModel;
+import software.bernie.geckolib.core.animatable.model.CoreGeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.model.GeoModel;
 
-
-import javax.annotation.Nullable;
-
-public class CarbuncleWheelModel extends AnimatedGeoModel<StarbuncleWheelTile> {
+public class CarbuncleWheelModel extends GeoModel<StarbuncleWheelTile> {
 
     @Override
-    public void setCustomAnimations(StarbuncleWheelTile entity, int uniqueID, @Nullable AnimationEvent customPredicate) {
+    public void setCustomAnimations(StarbuncleWheelTile entity, long uniqueID, AnimationState<StarbuncleWheelTile> customPredicate) {
         super.setCustomAnimations(entity, uniqueID, customPredicate);
-        IBone head = this.getAnimationProcessor().getBone("wheel");
+        CoreGeoBone head = this.getAnimationProcessor().getBone("wheel");
         Direction facing = entity.getBlockState().getValue(StarbuncleWheelBlock.FACING);
         float angle = getAngleForTe(entity, entity.getBlockPos(), ModBlockRegistry.STARBY_WHEEL.get().getRotationAxis(entity.getBlockState()));
         if(facing ==  Direction.SOUTH || facing == Direction.EAST) {
             angle = -angle;
         }
-        head.setRotationY( angle);
+        head.setRotY(angle);
     }
 
     public static float getAngleForTe(KineticBlockEntity te, final BlockPos pos, Direction.Axis axis) {

@@ -25,12 +25,12 @@ public class SourceInfo {
 
     public void removeAmount(int amount){
         this.amount -= amount;
-        blockInfo.nbt.putInt(SourceJarTile.SOURCE_TAG, this.amount);
+        blockInfo.nbt().putInt(SourceJarTile.SOURCE_TAG, this.amount);
     }
 
     public void addAmount(int amount){
         this.amount += amount;
-        blockInfo.nbt.putInt(SourceJarTile.SOURCE_TAG, this.amount);
+        blockInfo.nbt().putInt(SourceJarTile.SOURCE_TAG, this.amount);
     }
 
     public void removeWithUpdate(Level level, int amount, AbstractContraptionEntity entity){
@@ -38,7 +38,7 @@ public class SourceInfo {
         this.removeAmount(amount);
         int nextFillState = getFillState(this.amount);
 
-            ACNetworking.sendToNearby(level, blockInfo.pos, new PacketUpdateJarContraption(entity.getId(), blockInfo.pos, blockInfo.nbt, nextFillState));
+            ACNetworking.sendToNearby(level, blockInfo.pos(), new PacketUpdateJarContraption(entity.getId(), blockInfo.pos(), blockInfo.nbt(), nextFillState));
 
     }
 
@@ -47,7 +47,7 @@ public class SourceInfo {
         this.addAmount(amount);
         int nextFillState = getFillState(this.amount);
         if(currentFillState != nextFillState) {
-            ACNetworking.sendToNearby(level, blockInfo.pos, new PacketUpdateJarContraption(entity.getId(), blockInfo.pos, blockInfo.nbt, nextFillState));
+            ACNetworking.sendToNearby(level, blockInfo.pos(), new PacketUpdateJarContraption(entity.getId(), blockInfo.pos(), blockInfo.nbt(), nextFillState));
         }
     }
 }

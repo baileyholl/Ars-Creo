@@ -34,9 +34,9 @@ public interface ITurretBehavior {
             return;
         }
         EntitySpellResolver resolver = new EntitySpellResolver((new SpellContext(world, spell, fakePlayer, new ContraptionCaster(context.contraption.entity))));
-        if(!ContraptionUtils.removeSourceFromContraption(context, spell.getDiscountedCost(), pos)) {
-            boolean hasNearby = SourceUtil.hasSourceNearby(pos, world, 6, spell.getDiscountedCost());
-            if(!hasNearby || SourceUtil.takeSourceWithParticles(pos, world, 6, spell.getDiscountedCost()) == null){
+        if(!ContraptionUtils.removeSourceFromContraption(context, spell.getCost(), pos)) {
+            boolean hasNearby = SourceUtil.hasSourceNearby(pos, world, 6, spell.getCost());
+            if(!hasNearby || SourceUtil.takeSourceWithParticles(pos, world, 6, spell.getCost()) == null){
                 return;
             }
         }
@@ -45,7 +45,7 @@ public interface ITurretBehavior {
             this.shootProjectile(world, pos, resolver, context.state, context);
         } else {
             if (resolver.castType instanceof MethodTouch) {
-                BlockPos touchPos = new BlockPos(iposition.x(), iposition.y(), iposition.z());
+                BlockPos touchPos = BlockPos.containing(iposition.x(), iposition.y(), iposition.z());
                 if (direction == Direction.WEST || direction == Direction.NORTH) {
                     touchPos = touchPos.relative(direction);
                 }

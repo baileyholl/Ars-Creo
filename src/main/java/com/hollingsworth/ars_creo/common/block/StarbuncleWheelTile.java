@@ -8,31 +8,22 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.Tags;
-import software.bernie.ars_nouveau.geckolib3.core.IAnimatable;
-import software.bernie.ars_nouveau.geckolib3.core.PlayState;
-import software.bernie.ars_nouveau.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.ars_nouveau.geckolib3.core.controller.AnimationController;
-import software.bernie.ars_nouveau.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.ars_nouveau.geckolib3.core.manager.AnimationData;
-import software.bernie.ars_nouveau.geckolib3.core.manager.AnimationFactory;
-import software.bernie.ars_nouveau.geckolib3.util.GeckoLibUtil;
+
+import software.bernie.geckolib.animatable.GeoBlockEntity;
+import software.bernie.geckolib.core.animatable.GeoAnimatable;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
 
-public class StarbuncleWheelTile extends GeneratingKineticBlockEntity implements IAnimatable {
+public class StarbuncleWheelTile extends GeneratingKineticBlockEntity implements GeoBlockEntity {
+
     public StarbuncleWheelTile(BlockPos pos, BlockState state) {
         super(ModBlockRegistry.STARBY_TILE.get(), pos, state);
         setLazyTickRate(20);
-    }
-
-    @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController<>(this, "controller", 1, this::idlePredicate));
-    }
-
-    AnimationFactory factory = GeckoLibUtil.createFactory(this);
-    @Override
-    public AnimationFactory getFactory() {
-        return factory;
     }
 
     @Override
@@ -54,9 +45,16 @@ public class StarbuncleWheelTile extends GeneratingKineticBlockEntity implements
         ModBlockRegistry.STARBY_WHEEL.get().updateAllSides(getBlockState(), level, worldPosition);
     }
 
-    private PlayState idlePredicate(AnimationEvent<?> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("run"));
-        return PlayState.CONTINUE;
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<>(this, "controller", 1, (s) ->{
+            s.getController().setAnimation(RawAnimation.begin().thenPlay("run"));
+            return PlayState.CONTINUE;
+        }));
     }
-
+    AnimatableInstanceCache factory = GeckoLibUtil.createInstanceCache(this);
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return factory;
+    }
 }
