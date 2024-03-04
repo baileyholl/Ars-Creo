@@ -1,9 +1,10 @@
 package com.hollingsworth.ars_creo;
 
 
+import com.hollingsworth.ars_creo.client.render.ClientHandler;
+import com.hollingsworth.ars_creo.common.registry.CreativeTabRegistry;
 import com.hollingsworth.ars_creo.common.registry.ModBlockRegistry;
 import com.hollingsworth.ars_creo.network.ACNetworking;
-import com.hollingsworth.ars_creo.client.render.ClientHandler;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -38,9 +39,10 @@ public class ArsCreo
         modEventBus.addListener(ArsCreo::registerEvents);
     }
 
-    public static void registers(IEventBus event){
+    public static void registers(IEventBus event) {
         ModBlockRegistry.BLOCK_REG.register(event);
         ModBlockRegistry.BLOCK_ENTITY_REG.register(event);
+        CreativeTabRegistry.TABS.register(event);
     }
 
     public static void registerEvents(RegisterEvent event) {
