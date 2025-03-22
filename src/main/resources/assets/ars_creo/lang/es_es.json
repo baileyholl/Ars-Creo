@@ -1,0 +1,16 @@
+{
+	"block.ars_creo.starbuncle_wheel": "Rueda DE Ardilla",
+	"ars_creo.page.starbuncle_wheel": "Genera Fuerza Rotacional Para La creación. Colocar Un Bloque Dorado Delante De La Rueda Aumentará Las RPM..",
+	"ars_creo.page.behaviors": "Ars Creo habilita comportamientos especiales de artilugios para bloques de Ars Nouveau, incluyendo Torretas de Hechizos y Frascos de Fuentes. Torreta de Hechizos Básica: Dispara un hechizo al artilugio al interactuar con él. Torreta Temporizadora: Dispara un hechizo en su intervalo. Torreta de Hechizos Encantada: Dispara un hechizo con cada nuevo bloque visitado. Frasco de Fuentes: Puede ser consumido por las torretas de un artilugio..",
+	"itemGroup.ars_creo.general": "Create: Ars Creo",
+	"ars_creo.display_source.turret.not_enough_space": "No Hay Espacio ",
+	"ars_creo.display_source.turret.for_turret_status":"Estado De L Torreta",
+	"ars_creo.display_source.turret.no_spell": "No hay Hechizo Seleccionado.",
+	"ars_creo.display_source.turret.spell_name": "Hechizo: %s",
+	"ars_creo.display_source.turret.spell": "%s",
+	"ars_creo.display_source.turret_target": "Torreta De Hechizos",
+	"ars_creo.display_source.source_count": "escencia: %s",
+	"ars_creo.display_source.for_source_status": "Estado De la Escencia",
+	"ars_creo.display_source.source_jar": "Cantidad De Escencia",
+	"ars_creo.display_source.turret": "Hechizo"
+}
