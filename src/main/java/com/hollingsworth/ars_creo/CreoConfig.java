@@ -1,10 +1,8 @@
 package com.hollingsworth.ars_creo;
 
-
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class CreoConfig {
-
     public static ModConfigSpec SERVER_CONFIG;
 
     public static ModConfigSpec.IntValue WHEEL_BASE_SPEED;
@@ -18,5 +16,4 @@ public class CreoConfig {
         WHEEL_STRESS_CAPACITY = SERVER_BUILDER.comment("Stress capacity of the wheel").defineInRange("wheelStressCapacity", 16, 0.0, Double.MAX_VALUE);
         SERVER_CONFIG = SERVER_BUILDER.build();
     }
-    
 }

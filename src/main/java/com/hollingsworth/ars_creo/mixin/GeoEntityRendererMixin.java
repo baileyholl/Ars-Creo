@@ -18,11 +18,9 @@ import software.bernie.geckolib.renderer.GeoRenderer;
 
 @Mixin(GeoEntityRenderer.class)
 public abstract class GeoEntityRendererMixin<T extends Entity & GeoAnimatable> implements GeoRenderer<T> {
-
     @Inject(method = "renderRecursively(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/world/entity/Entity;Lsoftware/bernie/geckolib/cache/object/GeoBone;Lnet/minecraft/client/renderer/RenderType;Lnet/minecraft/client/renderer/MultiBufferSource;Lcom/mojang/blaze3d/vertex/VertexConsumer;ZFIII)V", at = @At("RETURN"))
     void renderRecursively(PoseStack poseStack, T animatable, GeoBone bone, RenderType renderType, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, int colour, CallbackInfo ci) {
-        if(animatable instanceof LivingEntity livingEntity) {
+        if(animatable instanceof LivingEntity livingEntity)
             GeoTrainHatRenderer.render(poseStack, livingEntity, bone, bufferSource, packedLight);
-        }
     }
 }

@@ -23,7 +23,7 @@ import net.neoforged.neoforge.common.util.FakePlayerFactory;
 
 public interface ITurretBehavior {
 
-    default void castSpell(MovementContext context, BlockPos pos){
+    default void castSpell(MovementContext context, BlockPos pos) {
         ServerLevel world = (ServerLevel) context.world;
         Position iposition = getDispensePosition(pos, context.state);
         Direction direction = context.state.getValue(BasicSpellTurret.FACING);
@@ -31,37 +31,33 @@ public interface ITurretBehavior {
         fakePlayer.setPos(pos.getX(), pos.getY(), pos.getZ());
         SpellCaster spellCaster = ANCodecs.decode(SpellCaster.CODEC.codec(), context.blockEntityData.get("spell_caster"));
         Spell spell = spellCaster.getSpell();
-        if(!spell.isValid()){
+        if(!spell.isValid())
             return;
-        }
+
         EntitySpellResolver resolver = new EntitySpellResolver((new SpellContext(world, spell, fakePlayer, new ContraptionCaster(context, context.contraption.entity))));
-        if(!ContraptionUtils.removeSourceFromContraption(context, spell.getCost(), pos)) {
+        if(!ContraptionUtils.removeSourceFromContraption(context, spell.getCost())) {
             boolean hasNearby = SourceUtil.hasSourceNearby(pos, world, 6, spell.getCost());
-            if(!hasNearby || SourceUtil.takeSourceMultipleWithParticles(pos, world, 6, spell.getCost()) == null){
+            if(!hasNearby || SourceUtil.takeSourceMultipleWithParticles(pos, world, 6, spell.getCost()) == null)
                 return;
-            }
         }
         if (resolver.castType instanceof MethodProjectile) {
             spellCaster.playSound(pos, world, null, spellCaster.getCurrentSound(), SoundSource.BLOCKS);
-            this.shootProjectile(world, pos, resolver, context.state, context);
+            this.shootProjectile(world, pos, resolver, context);
         } else {
             if (resolver.castType instanceof MethodTouch) {
                 BlockPos touchPos = BlockPos.containing(iposition.x(), iposition.y(), iposition.z());
-                if (direction == Direction.WEST || direction == Direction.NORTH) {
+                if (direction == Direction.WEST || direction == Direction.NORTH)
                     touchPos = touchPos.relative(direction);
-                }
 
-                if (direction == Direction.DOWN) {
+                if (direction == Direction.DOWN)
                     touchPos = touchPos.below();
-                }
 
                 resolver.onCastOnBlock(new BlockHitResult(new Vec3(touchPos.getX(), touchPos.getY(), touchPos.getZ()), direction.getOpposite(), new BlockPos(touchPos.getX(), touchPos.getY(), touchPos.getZ()), false));
             }
-
         }
     }
 
-    default void shootProjectile(ServerLevel world, BlockPos pos, SpellResolver resolver, BlockState state, MovementContext context) {
+    default void shootProjectile(ServerLevel world, BlockPos pos, SpellResolver resolver, MovementContext context) {
         Vec3 facingVec = Vec3.atLowerCornerOf(context.state.getValue(BasicSpellTurret.FACING).getNormal());
         facingVec = context.rotation.apply(facingVec);
         facingVec.normalize();
@@ -77,10 +73,6 @@ public interface ITurretBehavior {
         spell.setPos(x,y,z);
         spell.shoot(effectiveMovementVec.x, effectiveMovementVec.y, effectiveMovementVec.z, 0.4f, 0);
         world.addFreshEntity(spell);
-    }
-
-    default Direction getClosestFacingDirection(Vec3 exactFacing) {
-        return Direction.getNearest(exactFacing.x, exactFacing.y, exactFacing.z);
     }
 
     default Position getDispensePosition(BlockPos pos, BlockState state) {

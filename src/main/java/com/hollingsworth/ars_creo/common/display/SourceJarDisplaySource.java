@@ -1,6 +1,5 @@
 package com.hollingsworth.ars_creo.common.display;
 
-import com.hollingsworth.arsnouveau.common.block.tile.BasicSpellTurretTile;
 import com.hollingsworth.arsnouveau.common.block.tile.SourceJarTile;
 import com.simibubi.create.api.behaviour.display.DisplaySource;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkContext;
@@ -25,7 +24,7 @@ public class SourceJarDisplaySource extends DisplaySource {
         boolean isBook = context.getTargetBlockEntity() instanceof LecternBlockEntity;
 
         if (isBook) {
-            Stream<MutableComponent> componentList = getComponents(context, false).map(components -> {
+            Stream<MutableComponent> componentList = getComponents(context).map(components -> {
                 Optional<MutableComponent> reduce = components.stream()
                         .reduce(MutableComponent::append);
                 return reduce.orElse(EMPTY_LINE);
@@ -36,18 +35,17 @@ public class SourceJarDisplaySource extends DisplaySource {
                     .orElse(EMPTY_LINE));
         }
 
-        return getComponents(context, false).map(components -> {
+        return getComponents(context).map(components -> {
                     Optional<MutableComponent> reduce = components.stream()
                             .reduce(MutableComponent::append);
                     return reduce.orElse(EMPTY_LINE);
                 })
                 .toList();
-
     }
 
-    private Stream<List<MutableComponent>> getComponents(DisplayLinkContext context, boolean forFlapDisplay) {
+    private Stream<List<MutableComponent>> getComponents(DisplayLinkContext context) {
         BlockEntity sourceBE = context.getSourceBlockEntity();
-        if(!(sourceBE instanceof SourceJarTile turretTile))
+        if (!(sourceBE instanceof SourceJarTile turretTile))
             return Stream.empty();
 
         return Stream.of(List.of(

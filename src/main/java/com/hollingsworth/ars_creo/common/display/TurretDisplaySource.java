@@ -1,6 +1,7 @@
 package com.hollingsworth.ars_creo.common.display;
 
 import com.hollingsworth.arsnouveau.api.spell.Spell;
+import com.hollingsworth.arsnouveau.api.spell.SpellCaster;
 import com.hollingsworth.arsnouveau.common.block.tile.BasicSpellTurretTile;
 import com.simibubi.create.api.behaviour.display.DisplaySource;
 import com.simibubi.create.content.redstone.displayLink.DisplayLinkContext;
@@ -25,7 +26,7 @@ public class TurretDisplaySource extends DisplaySource {
         boolean isBook = context.getTargetBlockEntity() instanceof LecternBlockEntity;
 
         if (isBook) {
-            Stream<MutableComponent> componentList = getComponents(context, false).map(components -> {
+            Stream<MutableComponent> componentList = getComponents(context).map(components -> {
                 Optional<MutableComponent> reduce = components.stream()
                         .reduce(MutableComponent::append);
                 return reduce.orElse(EMPTY_LINE);
@@ -36,7 +37,7 @@ public class TurretDisplaySource extends DisplaySource {
                     .orElse(EMPTY_LINE));
         }
 
-        return getComponents(context, false).map(components -> {
+        return getComponents(context).map(components -> {
                     Optional<MutableComponent> reduce = components.stream()
                             .reduce(MutableComponent::append);
                     return reduce.orElse(EMPTY_LINE);
@@ -45,19 +46,23 @@ public class TurretDisplaySource extends DisplaySource {
 
     }
 
-    private Stream<List<MutableComponent>> getComponents(DisplayLinkContext context, boolean forFlapDisplay) {
+    private Stream<List<MutableComponent>> getComponents(DisplayLinkContext context) {
         BlockEntity sourceBE = context.getSourceBlockEntity();
-        if(!(sourceBE instanceof BasicSpellTurretTile turretTile))
+        if (!(sourceBE instanceof BasicSpellTurretTile turretTile))
             return Stream.empty();
-        Spell spell = turretTile.getCapability(turretTile,null).getSpell();
-        if(spell.isEmpty()) {
+
+        SpellCaster caster = turretTile.getCapability(turretTile,null);
+        if (caster == null)
             return Stream.of(List.of(Component.translatable("ars_creo.display_source.turret.no_spell")));
-        }
+
+        Spell spell = caster.getSpell();
+        if (spell.isEmpty())
+            return Stream.of(List.of(Component.translatable("ars_creo.display_source.turret.no_spell")));
 
         return Stream.of(List.of(
-           Component.translatable("ars_creo.display_source.turret.spell_name", spell.name())),
-           List.of(
-            Component.translatable("ars_creo.display_source.turret.spell", spell.getDisplayString())
-        ));
+                        Component.translatable("ars_creo.display_source.turret.spell_name", spell.name())),
+                List.of(
+                        Component.translatable("ars_creo.display_source.turret.spell", spell.getDisplayString())
+                ));
     }
 }

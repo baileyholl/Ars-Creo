@@ -10,7 +10,6 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 import org.apache.commons.lang3.tuple.MutablePair;
 
 public class BasicTurretBehavior extends MovingInteractionBehaviour implements ITurretBehavior {
-
     @Override
     public boolean handlePlayerInteraction(Player player, InteractionHand activeHand, BlockPos localPos, AbstractContraptionEntity contraptionEntity) {
         if(player.level().isClientSide)

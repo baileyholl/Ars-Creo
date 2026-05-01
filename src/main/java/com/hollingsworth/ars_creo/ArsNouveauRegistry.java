@@ -7,7 +7,7 @@ import com.hollingsworth.arsnouveau.api.registry.DocumentationRegistry;
 import com.simibubi.create.AllBlocks;
 
 public class ArsNouveauRegistry {
-    public static void registerDocumentation(ReloadDocumentationEvent event){
+    public static void registerDocumentation(ReloadDocumentationEvent ignored){
         DocumentationRegistry.registerEntry(DocumentationRegistry.CRAFTING, new DocEntryBuilder(ArsCreo.MODID, DocumentationRegistry.CRAFTING, ModBlockRegistry.STARBY_WHEEL.get().asItem())
                 .withIntroPage()
                 .withCraftingPages(ModBlockRegistry.STARBY_WHEEL.get()).build());
@@ -17,6 +17,5 @@ public class ArsNouveauRegistry {
         DocumentationRegistry.registerEntry(DocumentationRegistry.CRAFTING, new DocEntryBuilder(ArsCreo.MODID, DocumentationRegistry.CRAFTING, AllBlocks.FLUID_TANK.get().asItem())
                         .withName("ars_creo.fluid_tank")
                 .withIntroPage().build());
-
     }
 }

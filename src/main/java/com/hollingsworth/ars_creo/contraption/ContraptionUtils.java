@@ -8,7 +8,6 @@ import com.hollingsworth.arsnouveau.common.block.tile.SourceJarTile;
 import com.hollingsworth.arsnouveau.setup.registry.BlockRegistry;
 import com.simibubi.create.content.contraptions.Contraption;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
-import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 
@@ -17,7 +16,7 @@ import java.util.List;
 
 public class ContraptionUtils {
 
-    public static boolean removeSourceFromContraption(MovementContext context, int amount, BlockPos turretPos){
+    public static boolean removeSourceFromContraption(MovementContext context, int amount){
         ServerLevel world = (ServerLevel) context.world;
         int amountLeft = amount;
         int amountOnContraption = 0;

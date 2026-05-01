@@ -14,6 +14,7 @@ import static com.hollingsworth.ars_creo.common.registry.ModBlockRegistry.STARBY
 
 public class CreativeTabRegistry {
     public static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ArsCreo.MODID);
+    @SuppressWarnings("unused")
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> BLOCKS = TABS.register("general", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup." + ArsCreo.MODID + ".general"))
             .icon(() -> STARBY_WHEEL.get().asItem().getDefaultInstance())
