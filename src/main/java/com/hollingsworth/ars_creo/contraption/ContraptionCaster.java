@@ -3,7 +3,6 @@ package com.hollingsworth.ars_creo.contraption;
 import com.hollingsworth.arsnouveau.api.item.inv.FilterableItemHandler;
 import com.hollingsworth.arsnouveau.api.spell.SpellContext;
 import com.hollingsworth.arsnouveau.api.spell.wrapped_caster.IWrappedCaster;
-import com.simibubi.create.api.contraption.storage.item.MountedItemStorage;
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
 import com.simibubi.create.content.contraptions.behaviour.MovementContext;
 
@@ -18,8 +17,7 @@ public class ContraptionCaster implements IWrappedCaster {
     public ContraptionCaster(MovementContext context, AbstractContraptionEntity contraption){
         this.contraption = contraption;
         itemHandlers = new ArrayList<>();
-        MountedItemStorage storage = context.getItemStorage();
-        itemHandlers.add(new FilterableItemHandler(storage));
+        itemHandlers.add(new FilterableItemHandler(contraption.getContraption().getStorage().getAllItems()));
     }
 
     @Override
