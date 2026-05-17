@@ -9,8 +9,12 @@ import com.hollingsworth.arsnouveau.setup.registry.BlockRegistry;
 import com.simibubi.create.api.behaviour.display.DisplaySource;
 import com.simibubi.create.api.behaviour.interaction.MovingInteractionBehaviour;
 import com.simibubi.create.api.behaviour.movement.MovementBehaviour;
+import com.simibubi.create.api.contraption.BlockMovementChecks;
 import com.simibubi.create.api.registry.CreateRegistries;
 import com.simibubi.create.api.stress.BlockStressValues;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -32,6 +36,13 @@ public class CreateCompat {
         MovementBehaviour.REGISTRY.register(BlockRegistry.SOURCE_JAR.get(), new SourceJarBehavior());
         MovementBehaviour.REGISTRY.register(BlockRegistry.CREATIVE_SOURCE_JAR.get(), new SourceJarBehavior());
         BlockStressValues.CAPACITIES.register(ModBlockRegistry.STARBY_WHEEL.get(), () -> CreoConfig.WHEEL_STRESS_CAPACITY.getAsDouble());
+        MovementBehaviour.REGISTRY.register(BlockRegistry.PORTAL_BLOCK.get(), new PortalBehavior());
+        BlockMovementChecks.registerMovementAllowedCheck(new BlockMovementChecks.MovementAllowedCheck() {
+            @Override
+            public BlockMovementChecks.CheckResult isMovementAllowed(BlockState state, Level world, BlockPos pos) {
+                return state.is(BlockRegistry.PORTAL_BLOCK.get()) ? BlockMovementChecks.CheckResult.SUCCESS : BlockMovementChecks.CheckResult.PASS;
+            }
+        });
 
     }
 
