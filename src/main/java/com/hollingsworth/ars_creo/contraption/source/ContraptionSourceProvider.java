@@ -7,7 +7,7 @@ import com.simibubi.create.content.contraptions.Contraption;
 import net.minecraft.core.BlockPos;
 
 public class ContraptionSourceProvider implements ISpecialSourceProvider {
-    public ISourceTile contraptionSource;
+    public ContraptionSource contraptionSource;
     public Contraption contraption;
 
     public ContraptionSourceProvider(Contraption contraption) {
@@ -17,7 +17,7 @@ public class ContraptionSourceProvider implements ISpecialSourceProvider {
 
     @Override
     public ISourceTile getSource() {
-        return new ContraptionSource(contraption);
+        return contraptionSource;
     }
 
     @Override

@@ -4,6 +4,7 @@
   "package": "com.hollingsworth.ars_creo.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "SourceUtilMixin"
   ],
   "client": [
     "GeoEntityRendererMixin"

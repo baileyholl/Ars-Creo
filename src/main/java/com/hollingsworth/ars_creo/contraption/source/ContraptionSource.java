@@ -3,80 +3,88 @@ package com.hollingsworth.ars_creo.contraption.source;
 import com.hollingsworth.ars_creo.contraption.ContraptionUtils;
 import com.hollingsworth.arsnouveau.api.source.ISourceTile;
 import com.simibubi.create.content.contraptions.Contraption;
+import org.apache.commons.lang3.tuple.MutablePair;
 
+public class ContraptionSource implements ISourceTile {
+    @SuppressWarnings("all")
+    private Contraption contraption;
 
-public class ContraptionSource implements ISourceTile{
-    Contraption contraption;
-
-    public ContraptionSource(Contraption contraption){
+    public ContraptionSource(Contraption contraption) {
         this.contraption = contraption;
     }
 
     @Override
     public int getTransferRate() {
-        return 10000;
+        return ContraptionUtils.processSourceBlocks(contraption, 0, (info, amount) -> Math.max(amount, info.getTransferRate()));
     }
 
     @Override
     public boolean canAcceptSource() {
-        return this.getSource() < this.getMaxSource();
+        MutablePair<Integer, Integer> sourceData = ContraptionUtils.processSourceBlocks(contraption, MutablePair.of(0, 0), (info, pair) -> {
+            pair.left += info.getSource();
+            pair.right += info.getMaxSource();
+            return pair;
+        });
+        return sourceData.getLeft() < sourceData.getRight(); // source < maxSource
     }
 
     @Override
     public int getSource() {
-        int amount = 0;
-        for(SourceInfo sourceInfo : ContraptionUtils.getSourceBlocks(contraption)){
-            amount += sourceInfo.getAmount();
-        }
-        return amount;
+        return ContraptionUtils.processSourceBlocks(contraption, 0, (info, amount) -> amount + info.getSource());
     }
 
     @Override
     public int getMaxSource() {
-        return ContraptionUtils.getSourceBlocks(contraption).size() * 10000;
+        return ContraptionUtils.processSourceBlocks(contraption, 0, (info, amount) -> amount + info.getMaxSource());
     }
 
     @Override
     public int setSource(int source) {
-        if(source > getSource()){
-            this.addSource(source - getSource());
+        int currentSource = getSource();
+        if (source > currentSource) {
+            addSource(source - currentSource);
+            return getSource();
         }
-        if(source < getSource()){
-            this.removeSource(getSource() - source);
+        if (source < currentSource) {
+            removeSource(currentSource - source);
+            return getSource();
         }
-        return this.getSource();
+        return currentSource;
     }
 
     @Override
     public int addSource(int source) {
-        int remaining = source;
-        for(SourceInfo sourceInfo : ContraptionUtils.getSourceBlocks(contraption)){
-            if(remaining <= 0)
-                break;
-            int room = 10000 - sourceInfo.getAmount();
-            if(room > 0){
+        ContraptionUtils.processSourceBlocks(contraption, source, (info, remaining) -> {
+            if (remaining <= 0)
+                return remaining;
+            int room = info.getMaxSource() - info.getSource();
+            if (room > 0) {
                 int toAdd = Math.min(room, remaining);
-                sourceInfo.addWithUpdate(contraption.entity.level(), toAdd, contraption.entity);
-                remaining -= toAdd;
+                info.addWithUpdate(contraption.entity.level(), toAdd, contraption.entity);
+                return remaining - toAdd;
             }
-        }
-        return this.getSource();
+            return remaining;
+        });
+        return getSource();
     }
 
     @Override
     public int removeSource(int source) {
-        int remaining = source;
-        for(SourceInfo sourceInfo : ContraptionUtils.getSourceBlocks(contraption)){
-            if(remaining <= 0)
-                break;
-            int amountInJar = sourceInfo.getAmount();
-            if(amountInJar > 0){
+        ContraptionUtils.processSourceBlocks(contraption, source, (info, remaining) -> {
+            if (remaining <= 0)
+                return remaining;
+            int amountInJar = info.getSource();
+            if (amountInJar > 0) {
                 int toRemove = Math.min(amountInJar, remaining);
-                sourceInfo.removeWithUpdate(contraption.entity.level(), toRemove, contraption.entity);
-                remaining -= toRemove;
-                System.out.println(amountInJar + " " + toRemove + " " + remaining);
+                info.removeWithUpdate(contraption.entity.level(), toRemove, contraption.entity);
+                return remaining - toRemove;
             }
-        }
-        return this.getSource();
+            return remaining;
+        });
+        return getSource();
+    }
+
+    public boolean hasInfiniteSource() {
+        return ContraptionUtils.processSourceBlocks(contraption, false, (info, value) -> value || info instanceof CreativeSourceJarInfo);
     }
 }

@@ -1,8 +1,11 @@
 package com.hollingsworth.ars_creo;
 
+import com.hollingsworth.ars_creo.api.SourceInfo;
 import com.hollingsworth.ars_creo.common.PotionTank;
 import com.hollingsworth.ars_creo.common.registry.CreativeTabRegistry;
 import com.hollingsworth.ars_creo.common.registry.ModBlockRegistry;
+import com.hollingsworth.ars_creo.contraption.source.CreativeSourceJarInfo;
+import com.hollingsworth.ars_creo.contraption.source.SourceJarInfo;
 import com.hollingsworth.ars_creo.network.ACNetworking;
 import com.hollingsworth.arsnouveau.setup.registry.BlockRegistry;
 import com.simibubi.create.foundation.item.KineticStats;
@@ -50,13 +53,15 @@ public class ArsCreo {
         TooltipModifier.REGISTRY.register(ModBlockRegistry.STARBY_WHEEL_ITEM.get(), KineticStats.create(ModBlockRegistry.STARBY_WHEEL_ITEM.get()));
         CreateCompat.setup();
         CreateCompat.setupDisplayBehaviors();
+        SourceInfo.register(BlockRegistry.SOURCE_JAR.get(), SourceJarInfo::new);
+        SourceInfo.register(BlockRegistry.CREATIVE_SOURCE_JAR.get(), CreativeSourceJarInfo::new);
     }
 
     public static void registerCapability(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(Capabilities.FluidHandler.BLOCK, BlockRegistry.POTION_JAR_TYPE.get(), (tile, ctx) -> new PotionTank(tile));
     }
 
-    public static ResourceLocation prefix(String path){
+    public static ResourceLocation prefix(String path) {
         return ResourceLocation.fromNamespaceAndPath(MODID, path);
     }
 }
