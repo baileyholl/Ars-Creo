@@ -49,6 +49,7 @@ repositories {
     maven { url = "https://maven.createmod.net" } // Create, Ponder, Flywheel
     maven { url = "https://maven.ithundxr.dev/snapshots" } // Registrate
     maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven" } // NeoForge config api port, needed by ponder
+
     exclusiveContent {
         forRepository {
             maven {
@@ -140,7 +141,7 @@ dependencies {
     implementation "mezz.jei:jei-${project.mc_version}-neoforge:${project.jei_version}"
 
     implementation 'com.github.glitchfiend:TerraBlender-neoforge:1.21-4.0.0.0'
-    implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}+1.21"
+    implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}+1.21.1"
     implementation ("com.simibubi.create:create-1.21.1:6.0.9-215:slim"){transitive = false}
 
     compileOnly("dev.engine-room.flywheel:flywheel-neoforge-api-${flywheel_minecraft_version}:${flywheel_version}")
