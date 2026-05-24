@@ -1,2 +1,2 @@
 # Changelog
-Fixes portal behavior
+Add ritual support to contraptions
