@@ -18,11 +18,12 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 public class ACNetworking {
 
-    private static int ID = 0;
-    public static int nextID(){return ID++;}
+
+
     public static void register(final RegisterPayloadHandlersEvent event){
-        final PayloadRegistrar reg = event.registrar("1");
+        final PayloadRegistrar reg = event.registrar("2");
         reg.playToClient(PacketUpdateJarContraption.TYPE, PacketUpdateJarContraption.CODEC, ACNetworking::handle);
+        reg.playToClient(PacketUpdateContraption.TYPE, PacketUpdateContraption.STREAM_CODEC, ACNetworking::handle);
     }
 
     public static <T extends AbstractPacket> void handle(T message, IPayloadContext ctx) {

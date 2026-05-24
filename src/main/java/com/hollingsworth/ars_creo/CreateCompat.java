@@ -38,10 +38,12 @@ public class CreateCompat {
         BlockStressValues.CAPACITIES.register(ModBlockRegistry.STARBY_WHEEL.get(), () -> CreoConfig.WHEEL_STRESS_CAPACITY.getAsDouble());
         MovementBehaviour.REGISTRY.register(BlockRegistry.PORTAL_BLOCK.get(), new PortalBehavior());
         MovingInteractionBehaviour.REGISTRY.register(BlockRegistry.PORTAL_BLOCK.get(), new PortalMovingInteraction());
+        MovementBehaviour.REGISTRY.register(BlockRegistry.RITUAL_BLOCK.get(), new RitualBehavior());
+        MovingInteractionBehaviour.REGISTRY.register(BlockRegistry.RITUAL_BLOCK.get(), new RitualInteraction());
         BlockMovementChecks.registerMovementAllowedCheck(new BlockMovementChecks.MovementAllowedCheck() {
             @Override
             public BlockMovementChecks.CheckResult isMovementAllowed(BlockState state, Level world, BlockPos pos) {
-                return state.is(BlockRegistry.PORTAL_BLOCK.get()) ? BlockMovementChecks.CheckResult.SUCCESS : BlockMovementChecks.CheckResult.PASS;
+                return (state.is(BlockRegistry.PORTAL_BLOCK.get()) || state.is(BlockRegistry.RITUAL_BLOCK.get())) ? BlockMovementChecks.CheckResult.SUCCESS : BlockMovementChecks.CheckResult.PASS;
             }
         });
 
